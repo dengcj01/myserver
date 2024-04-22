@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// 请求运营活动列表数据
+message ReqActiveData
+{
+
+}
+
+
+message ActiveData
+{
+    sint32 id=1;
+    sint32 type=2;
+    sint32 startTime=3;
+    sint32 endTime=4;
+    bytes param=5;
+}
+
+// 请求运营活动列表数据返回
+message ResActiveData
+{
+    repeated ActiveData data=1;
+} 
+
+// 通知客户端开启/闭了活动
+message ResNoticeOptActive
+{
+    sint32 opt=1; // 1:开启 2:关闭
+    repeated ActiveData data=2;  
+}
+
+// 请求活动配置
+message ReqActiveConf
+{
+    sint32 id=1;
+}
+
+// 请求活动配置返回
+message ResActiveConf
+{
+    sint32 id=1;
+    bytes data=2;
+}

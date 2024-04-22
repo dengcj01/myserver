@@ -1,0 +1,2 @@
+libs.tar.gz filter=lfs diff=lfs merge=lfs -text
+src/gameServer/bin/logic/config/Monsterconfig.json filter=lfs diff=lfs merge=lfs -text

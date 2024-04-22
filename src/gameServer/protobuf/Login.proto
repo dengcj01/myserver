@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+
+
+
+// 请求登入认证 
+message ReqLoginAuth
+{
+    sint32 serverId=1; // 当前服务器id
+    string account=2; // 账号
+    string password=3; // 密码
+    string pf=4; // 平台名字
+    sint32 fromServerId=5; // 初始服务器id
+}
+
+// 登入认证返回 
+message ResLoginAuth
+{
+    sint32 code=1;
+}
+
+// 查询玩家 
+message ReqSelectPlayer
+{
+}
+
+// 查询玩家返回 
+message ResSelectPlayer
+{
+    uint64 pid=1; // 玩家id
+    sint32 code=2; 
+}
+
+
+// 请求创建玩家 
+message ReqCreatePlayer
+{
+    sint32 sex=1; // 1:男 2:女
+    bytes name=2; // 名字
+}
+
+// 创建玩家返回 
+message ResCreatePlayer
+{
+    sint32 sex=1; // 1:男 2:女
+    bytes name=2; // 玩家名字
+    uint64 pid=3; // 玩家id
+    sint32 code=4; 
+}
+
+// 请求进入游戏 
+message ReqEnterGame
+{
+    uint64 pid=1; // 玩家id 
+}
+
+// 请求进入游戏返回 
+message ResEnterGame
+{
+    sint32 code=1; // 进入游戏结果
+}
+
+// 服务器强制关闭客户端 
+message ResServerCloseClient
+{
+
+}
+
