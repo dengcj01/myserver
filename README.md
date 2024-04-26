@@ -16,6 +16,8 @@
 
 8:支持vscode的lua断点调试.需要在vscdoe安装luapand
 
+8.1有些代码写的不严谨，请过滤，有些细节也没处理.也请过滤掉
+
 9:架构为game进程,db进程,log进程,gate进程
 gate:客户端连接它,使用的是websocket
 game:游戏的主
