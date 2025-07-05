@@ -1,7 +1,0 @@
-{
-    "dbPort": 8000,
-    "mysqlAddr": "192.168.0.103",
-    "mysqlDbName": "test",
-    "mysqlAccount": "root",
-    "mysqlPasswd": "123456"
-}

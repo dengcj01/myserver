@@ -1,3 +1,0 @@
-#!/bin/bash
-./protoc -I=./protobuf --cpp_out=./game/pb ./protobuf/*.proto
-
