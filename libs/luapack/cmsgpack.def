@@ -1,3 +1,0 @@
-LIBRARY cmsgpack.dll
-EXPORTS
-luaopen_cmsgpack
