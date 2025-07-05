@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+//天赋数据
+message TalentInfo
+{
+    int32 id = 1; 
+    int32 level = 2;
+}
+
+// 英雄数据
+message HeroSlotInfo
+{
+    int32 id = 1; // 房间id
+    int32 level = 2;
+    int32 heroid = 3;
+}
+
+//摆件数据
+message DecorateInfo
+{
+    int32 id = 1; // 房间id
+    int32 level = 2;
+    string furnitureid = 3; // 家具唯一id
+}
+
+// 丹药数据
+message AlchemyInfo
+{
+    int32 itemid = 1;
+    int32 count = 2;
+    int32 startTime = 3;
+}
+
+
+// 工坊数据
+message WorkShop
+{
+    int32 roomid = 1;
+    int32 level = 2;
+    int32 type = 3;
+    int32 hasTalentCount = 4; //天赋点数
+    int32 talentSlotCount = 5; //天赋槽位数量 // 无用字段
+    int32 decorateSlotCount = 6; //摆件槽位数量 // 无用字段
+    int32 demeanour = 7; // 气魄值
+    int32 demeanourLevel = 8; //气魄等级
+    int32 humor = 9; // 风度值
+    int32 humorLevel = 10; // 风度等级
+    repeated TalentInfo talentSlot = 11; //天赋
+    repeated HeroSlotInfo heroSlot = 12; // 槽位
+    repeated DecorateInfo decorateSlot = 13; //摆件
+    AlchemyInfo alchemy = 14; //炼丹
+    
+}
+
+// 英雄请求数据
+message WorkShopHero
+{
+    int32 index = 1; // 槽位索引
+    int32 heroid= 2;
+    bool isWear = 3; // 是否有英雄
+}
+
+// 工坊房间升级
+message ReqWorkShopRoomUp
+{
+    int32  roomid =1 ;
+}
+
+// 工坊房间天赋升级
+message ReqWorkShopTalentUp
+{
+    int32 roomid =1;
+    int32 index =2;
+    int32 level =3;
+}
+
+// 工坊房间摆件升级
+message ReqWorkShopDecorateUp
+{
+    int32 roomid =1;
+    int32 index =2;
+    int32 level =3;
+}
+
+// 工坊房间单个英雄上下架
+message ReqWorkShopAddOrUnWearHero
+{
+    WorkShopHero hero = 1;
+}
+
+// 工坊房间批量英雄上下架
+message ReqWorkShopAddHeros
+{
+    int32 roomid =1;
+    repeated WorkShopHero heros = 2;
+}
+
+// 工坊房间摆件上下架
+message ReqWorkShopAddOrUnWearDecorate
+{
+    int32 roomid =1;
+    int32 index =2;
+    string furnitureid =3;
+    bool isWear =4;
+}
+
+// 工坊房间丹药炼制
+message ReqWorkShopAlchemy
+{
+    int32 roomid =1;
+    int32 productid =2;
+    int32 count =3;
+}
+
+// 工坊房间丹药采集
+message ReqWorkShopCollectAlchemy
+{
+    int32 roomid =1;
+    int32 productid =2;
+}
+
+// 工坊房数据返回间
+message ResWorkShopUpSign
+{
+    WorkShop workshop = 1;
+}
+
+// 工坊房间全部数据返回
+message ResWorkShop
+{
+    repeated WorkShop workshop = 1;
+}
+
+//工坊请求全部数据
+message ReqWorkShop
+{
+}
+
+//工坊请求数据
+message ReqWorkShopSign
+{
+    int32 roomid = 1;
+}
+
+
+
+
+
+
+
+
+

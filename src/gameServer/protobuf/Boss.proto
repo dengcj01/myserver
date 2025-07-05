@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+import "Adventure.proto";
+
+
+
+
+
+// 请求boss数据
+message ReqBossInfo
+{
+
+}
+
+// boss关卡数据
+message BossCheckPoint
+{
+    int32 idx=1; // 当前关卡
+    int32 maxHarm=2; // 最大伤害
+}
+
+//boss数据
+message BossData
+{
+    int32 id=1; // 当前章节
+    repeated BossCheckPoint data=2; // boss关卡数据
+}
+
+
+
+
+// 请求boss数据返回
+message ResBossInfo
+{
+    repeated AdvTeamData team=1; // 布阵数据
+    uint32 endTime=2; // 体力恢复结束时间
+    repeated BossData data=3; // boss数据
+    int32 buyCnt=4; // 今日已购买体力次数
+    int32 autoFight=5; // 自动战斗 0:没有1有
+}
+
+// 保存boss队伍数据
+message ReqSaveBossFormation
+{
+    AdvTeamData team=1; // 队伍数据
+}
+
+// 保存boss队伍数据返回
+message ResSaveBossFormation
+{
+    AdvTeamData team=1; // 队伍数据
+}
+
+// 体力结束时间到了(客户端通知.服务器性能考虑不加定时器)
+message ReqBossTiliTimeEnd
+{
+
+}
+
+// 体力结束时间到了(客户端通知.服务器不加定时器)
+message ResBossTiliTimeEnd
+{
+    uint32 endTime=1; // > 0表示还是继续倒计时.0表示体力满了
+}
+
+
+// boos扫荡/如果消耗了体力返回ResBossTiliTimeEnd
+message ReqBossSaodang
+{
+    int32 id=1; // 当前章节
+    int32 idx=2; // 当前关卡
+    int32 cnt=3; // 扫荡次数
+}
+
+
+// 挑战检查
+message ReqBossFightCheck
+{
+    int32 id=1; // 当前章节
+    int32 idx=2; // 当前关卡
+    int32 teamId=3; // 队伍id
+
+}
+
+// 挑战检查返回/返回了才能挑战
+message ResBossFightCheck
+{
+
+}
+
+
+
+// 客户端挑战完毕
+message ReqBossClietFightEnd
+{
+    int32 id=1; // 当前章节
+    int32 idx=2; // 当前关卡
+    int32 cnt=3; // 投喂次数
+    int32 maxHarm=4; // 最大伤害
+}
+
+// 客户端挑战完毕返回
+message ResBossClietFightEnd
+{
+    int32 id=1; // 当前章节
+    int32 idx=2; // 当前关卡
+    int32 cnt=3; // 投喂次数
+    int32 maxHarm=4; // 最大伤害
+    int32 code=5; // 服务器验证投喂次数结果 0正常1异常
+}
+
+
+
+// 通知体力购买次数更新
+message NotifyBossBuyCntUpdate
+{
+    int32 buyCnt=1; // 今日已购买体力次数
+}
+
+
+// 设置自动战斗
+message ReqBossSetAutoFight
+{
+    int32 autoFight=1; // 自动战斗 0:没有1有
+}

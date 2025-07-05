@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+// 玩家基础数据
+message PlayerBaseData
+{
+    uint64 pid            = 1;   // 玩家id
+    string name           = 2;   // 玩家名字
+    string icon           = 3;   // 玩家头像
+    string account        = 4;   // 玩家账号
+    string pf             = 5;   // 平台名字
+    uint32 createTime     = 6;   // 创角时间
+    uint64 power          = 7;   // 战力
+    uint32 level          = 8;   // 等级
+    uint32 vip            = 9;   // vip等级
+    uint32 loginTime      = 10;  // 登入时间
+    uint64 guildId        = 11;  // 工会id
+    uint32 chargeVal      = 12;  // 充值金额
+    uint32 title          = 13;  // 称号
+    uint32 headIcon       = 14;  // 头像框
+    uint32 skin           = 15;  // 皮肤id
+    uint32 serverId       = 16;  // 服务器id
+    int32  gmlv           = 17;  // gm等级 0:不开启 1:开启
+    int32  sex            = 18;  // 1:男 2:女
+    uint32 logoutTime     = 19;  // 上次登出时间
+    uint32 exp            = 20;  // 经验
+    uint64 sessionId      = 21;  // 登陆sessionid
+    string extra          = 22;  // 额外信息
+    uint32 bantime        = 23;  // 封号时间
+    string banreason      = 24;  // 封号原因
+    uint32 firstLoginTime = 25;  // 首次登入时间
+    uint32 fromServerId    = 26;  // 登陆来源服务器id
+}
+
+// 登入下发玩家基础数据
+message NotifyPlayerBaseData
+{
+    PlayerBaseData data = 1;
+}
+
+// 给前端的展示的玩家基础数据(一般是排行榜的)
+message PayerBaseInfo
+{
+    uint64 pid        = 1;   // 玩家id
+    string name       = 2;   // 玩家名字
+    string icon       = 3;   // 玩家头像 
+    uint32 level      = 4;   // 等级
+    uint32 vip        = 5;   // vip等级
+    uint64 guildId    = 6;   // 工会id
+    uint64 power      = 7;   // 战力
+    uint32 title      = 8;   // 称号
+    uint32 headIcon   = 9;   // 头像框
+    uint32 skin       = 10;  // 皮肤id
+    uint32 serverId   = 11;  // 服务器id
+    uint32 logoutTime = 12;  // 上次登出时间
+    int32  dayShare   = 13;  // 工会今日贡献
+    int32  allShare   = 14;  // 工会历史贡献
+    uint32 enterTime  = 15;  // 加入工会时间
+    int32  sex        = 16;  // 1:男 2:女
+    uint32 applyTime  = 17;  // 工会申请时间
+}
+
+        // 请求心跳包 // 服务器返回进入游戏后开始发送
+message ReqHeartTick
+{
+
+}
+
+        // 请求心跳包返回
+message ResHeartTick
+{
+    uint32 nowTime = 1;  // 服务器当前时间
+}
+
+        // 执行服务器gm指令
+message ReqServerGm
+{
+    string cmd  = 1;  // 命令名字
+    string args = 2;  // 命令参数 参数以空格分开
+
+            // additem 10101    1           1   
+            // 命令    物品id   物品数量  物品类型
+}
+
+        // 改名
+message ReqChangeName
+{
+    string name = 1;
+}
+
+        // 改名返回
+message ResChangeName
+{
+    string name = 1;
+    uint32 cnt  = 2;
+}
+
+
+          // 请求玩家改名数据
+message ReqPlayerChangeNameInfo
+{
+}
+
+        // 请求玩家改名数据返回
+message ResPlayerChangeNameInfo
+{
+    uint32 cnt = 1;  // 已改名次数
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

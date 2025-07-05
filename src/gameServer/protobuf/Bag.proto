@@ -1,0 +1,168 @@
+
+syntax = "proto3";
+
+
+
+// 装备属性结构体
+message itemAttrInfo
+{
+	int32 type=1;   // 属性id
+	int32 value=2;  // 属性值
+}
+
+
+// 装备结构体
+message EquipInfo
+{
+	int32 level=1; // 装备等级
+	int32 exp=2; // 装备经验值
+	repeated itemAttrInfo attrs=3; // 装备属性
+	int32 quality=4; // 装备品质
+	int32 isLock=5; // 是否锁定
+    string owner=6; // 所有者id
+	int32 ownerType=7; // 所有者类型(英雄类型,家具类型...)
+	int32 idx=8; // 索引位置(装备穿在英雄那个位置,家具放在哪个位置,马车里面的货物在那个位置)
+}
+
+// 物品结构体
+message ItemInfo
+{
+    int32 id=1;    // 物品id
+    uint64 count=2; // 物品数量
+	int32 type=3;  // 物品类型
+	int32 opt=4; // 采集才用到的参数/0:进背包的1:进缓存空间的2:出缓存空间
+
+}
+
+
+// 背包结构体
+message BagInfo
+{
+    string uid=1; // 物品唯一id 
+    ItemInfo item=2;
+    EquipInfo equip=3;  
+}
+
+
+
+// 请求玩家玩家背包数据
+message ReqAllBagInfo
+{
+
+}
+
+
+// 请求玩家玩家背包数据返回
+message ResAllBagInfo
+{
+	repeated BagInfo bag=1;
+}
+
+
+// 新增道具或者道具信息变化
+message NotifyBagInfoSignUp
+{
+	repeated BagInfo bag=1;
+}
+
+// 删除背包的道具
+message NotifyDeleteItem
+{
+	repeated string bag=1;
+}
+
+
+// 货币结构
+message CurrencyInfo
+{
+	int32 id=1;
+	uint64 value=2;
+}
+
+// 请求货币数据
+message ReqCurrencyInfo
+{
+	
+}
+
+// 请求货币数据返回
+message ResCurrencyInfo
+{
+	repeated CurrencyInfo currency=1;
+}
+
+// 新增货币或者货币信息变化
+message NotifyCurrencyUpdate
+{
+	repeated CurrencyInfo currency=1;
+}
+
+// 删除货币
+message NotifyDeleteCurrency
+{
+	repeated int32 currency=1; // 删除的货币id
+}
+
+
+
+// 通知客户端获得奖励提示
+message NotifyClientRewardTips 
+{
+    repeated ItemInfo data=1;
+    uint32 rdType=2; // 奖励类型
+    uint32 param1=3; // 额外参数
+    uint32 param2=4;
+    sint32 param3=5;
+    uint64 param4=6;
+    uint64 param5=7;
+    sint64 param6=8;
+}
+
+// 请求装备锁定
+message ReqBagItemLock
+{
+	string uid=1;
+	int32 isLock=2;
+}
+
+// 请求装备锁定返回
+message ResBagItemLock
+{
+	string uid=1;
+	int32 isLock=2;
+}
+
+// 请求删除装备
+message ReqBagDelItem
+{
+	string uid=1;
+}
+
+
+// 请求装备升级
+message ReqEquipLevelUp
+{
+	string uid=1;
+	repeated ItemInfo itemlist=2; // 消耗的道具列表
+	repeated string uids=3; // 被吞噬的装备uid列表
+	int32 heroId=4; // 英雄id
+}
+
+// 请求装备升级返回
+message ResEquipLevelUp
+{
+	string guid=1; // 吞噬装备guid
+	int32 level=2; // 当前等级
+	int32 exp=3; // 当前经验值 
+	int32 heroId=4; // 英雄id
+	repeated itemAttrInfo attrs=5; // 装备属性
+}
+
+
+// 请求使用道具
+message ReqUseItem
+{
+	int32 id=1; // 道具id
+	int32 cnt=2; // 使用数量
+}
+

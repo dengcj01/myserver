@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+
+message UnLockData
+{
+    int32 id = 1;
+    int32 value = 2;
+    int32 param = 3;
+}
+
+
+//玩家升级
+message ReqAdviceLevelup
+{
+
+}
+
+//玩家升级返回
+message ResAdviceLevelup
+{
+	uint32 level =1;
+}
+
+//请求设置玩家签名
+message ReqSetSignature
+{
+    string sign = 1;
+}
+
+//返回玩家签名
+message NotifySetSignature
+{
+    string sign = 1;
+}
+
+
+//请求设置玩家英雄列表
+message ReqSetMyHeros
+{
+    repeated int32 ids = 1;
+}
+
+//返回玩家英雄列表
+message NotifySetMyHeros
+{
+    repeated int32 ids = 1;
+}
+
+//请求评价解锁
+message ReqUnlock
+{
+    int32 id = 1;
+    bool isGold =2; // true 金币解锁 fasle 是钻石
+}
+
+//评价解锁返回
+message ResUnlock
+{
+    UnLockData unLockData = 1;
+}
+
+
+message UnlockListData
+{
+    repeated UnLockData unLockData = 1;
+}
+
+//请求评价数据
+message ReqUnlockData
+{
+}
+
+
+//评价返回
+message ResUnlockData
+{
+    repeated UnlockListData unlockListData = 1;
+}
+
+
+
+

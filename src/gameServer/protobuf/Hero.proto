@@ -1,0 +1,281 @@
+syntax = "proto3";
+import "Equip.proto";
+
+
+// 英雄天赋
+message talentInfo
+{
+    int32 skillBasic=1;
+    int32 skillCombat=2;
+    int32 skillPassive=3;
+    int32 skillExtra1=4;
+    int32 skillExtra2=5;
+    int32 skillExtra3=6;
+    int32 talentArrange=7;
+    int32 talentAttribute1=8;
+    int32 talentAttribute2=9;
+    int32 talentAttribute3=10;
+    int32 talentAttribute4=11;
+    int32 talentAttribute5=12;
+    int32 talentAttribute6=13;
+    int32 talentAttribute7=14;
+    int32 talentAttribute8=15;
+    int32 talentAttribute9=16;
+    int32 talentAttribute10=17;
+    int32 talentNature=18;
+}
+
+
+message HeroStudyProcess
+{
+	int32 id=1; // 进度id
+	int32 process=2; // 进度值
+}
+
+
+// 英雄结构体
+message Warrior 
+{
+	int32 id=1;
+	string name=2;
+	int32 level=3;
+	int32 exp=4;
+	int32 state=5; // 
+	int32 grade=6;
+	talentInfo talent=7;
+	int32 constellation=8;
+	int32 studyLv=9; // 学习等级
+	repeated HeroStudyProcess studyData=10; // 学习进度
+}
+
+// 服务器通知获得英雄
+message NotifyAddNewHero 
+{
+	repeated Warrior hero=1; // 英雄列表
+}
+
+// 请求英雄列表
+message ReqHeroList 
+{
+}
+
+// 请求英雄列表返回
+message ResHeroList 
+{
+	repeated Warrior hero = 1;
+}
+
+// 请求英雄升级
+message ReqHeroLevelUp
+{
+	int32 heroId=1;
+	repeated ItemInfo itemlist=2;
+}
+
+// 请求英雄升级返回
+message ResHeroLevelUp
+{
+	int32 heroId=1;
+	int32 level=2;
+	int32 exp = 3;
+}
+
+// 请求英雄升阶
+message ReqHeroUpgrade
+{
+	int32 heroId=1;
+}
+
+// 请求英雄升阶返回
+message ResHeroUpgrade
+{
+	int32 heroId=1;
+	int32 grade=2;
+}
+
+
+// 请求解锁英雄天赋
+message ReqHeroUnlockTalent
+{
+	int32 heroId=1;
+	string talentname=2;
+}
+
+// 请求解锁英雄天赋返回
+message ResHeroUnlockTalent
+{
+	int32 heroId=1;
+	string talentname=2;
+}
+
+
+// 请求升级天赋
+message ReqHeroUpgradeSkill
+{
+	int32 heroId=1;
+	string talentname=2;
+}
+
+// 请求升级天赋返回
+message ResHeroUpgradeSkill
+{
+	int32 heroId=1;
+	string talentname=2;
+	int32 level=3;
+}
+
+
+// 请求解锁命座
+message ReqHeroUpgradeConstell
+{
+	int32 heroId=1;
+}
+
+// 请求解锁命座返回
+message ResHeroUpgradeConstell
+{
+	int32 heroId=1;
+	int32 constellation=2; // 解锁次数
+}
+
+
+// 请求英雄穿装备
+message ReqHeroEquipOn
+{
+	int32 heroId=1;
+	int32 equipSlotNum=2; // 穿戴位置
+	string eid=3; // 装备唯一id
+	string oldUid=4; // 已经穿在身上的装备uid
+}
+
+// 请求英雄穿装备返回
+message ResHeroEquipOn
+{
+	int32 heroId=1;
+	int32 equipSlotNum=2; // 穿戴位置
+	string eid=3; // 装备唯一id
+	string oldUid=4; // 已经穿在身上的装备uid
+
+}
+
+// 请求英雄拖装备
+message ReqHeroEquipOff
+{
+	int32 heroId=1;
+	string eid=2; // 装备唯一id
+}
+
+// 请求英雄拖装备返回
+message ResHeroEquipOff
+{
+	int32 heroId=1;
+	string eid=2; // 装备唯一id
+}
+
+
+
+// 请求英雄学习进度奖励数据
+message ReqHeroStudyRewardInfo
+{
+
+}
+
+// 学习奖励数据
+message HeroStudyProcessRdData
+{
+	int32 studyId=1; // 学习id
+	repeated int32 ids=2; // 可领取奖励id
+}
+
+// 英雄学习进度奖励数据
+message HeroStudyProcessAllRdData
+{
+	int32 heroId=1; // 英雄id
+	repeated HeroStudyProcessRdData ids=2; //学习奖励数据
+}
+
+// 请求英雄学习进度奖励数据返回
+message ResHeroStudyRewardInfo
+{
+	repeated HeroStudyProcessAllRdData data=1; // 所有英雄学习进度奖励数据
+}
+
+
+
+// 英雄学习
+message ReqHeroStudy
+{
+	int32 heroId=1; // 英雄id
+	int32 id=2; // 学习id
+	int32 cnt=3; // 学习次数
+}
+
+// 英雄学习返回
+message ResHeroStudy
+{
+	int32 heroId=1; // 英雄id
+	int32 id=2; // 学习id
+	int32 cnt=3; // 学习次数
+	int32 process=4; // 学习进度
+	int32 studyLv=5; // 学习等级
+	repeated int32 ids=6; //学习奖励
+}
+
+// 请求领取英雄学习进度奖励数据
+message ReqRecvHeroStudyProcessRd
+{
+	int32 heroId=1; // 英雄id
+	int32 id=2; // 学习id
+	int32 process=3; // 进度值
+}
+
+// 请求领取英雄学习进度奖励数据返回
+message ResRecvHeroStudyProcessRd
+{
+	int32 heroId=1; // 英雄id
+	int32 id=2; // 学习id
+	int32 process=3; // 进度值
+}
+
+
+// 请求重置学习
+message ReqResetHeroStudy
+{
+	string heroId=1; // 英雄id
+}
+
+// 请求重置学习返回
+message ResResetHeroStudy
+{
+	int32 heroId=1; // 英雄id
+	repeated HeroStudyProcess data=2; // 学习进度
+}
+
+// 通知新增了一个学习进度数据/道具解锁 注意新增的英雄要处理这个
+message NotifyAddStudyProcess
+{
+	int32 id=1; // 学习id
+}
+
+
+// 一键穿装备数据
+message OneKeyHeroEquipData
+{
+	int32 pos=1; // 位置
+	string eid=2; // 装备id
+	string oldId=3; // 旧装备id
+}
+
+// 英雄一键穿装备
+message ReqOneKeyHeroEquip
+{
+	int32 heroId=1; // 英雄id
+	repeated OneKeyHeroEquipData data=2; // 一键穿装备数据
+}
+
+// 英雄一键穿装备返回
+message ResOneKeyHeroEquip
+{
+	int32 heroId=1; // 英雄id
+	repeated OneKeyHeroEquipData data=2; // 一键穿装备数据
+}

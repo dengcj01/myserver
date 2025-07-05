@@ -1,0 +1,30 @@
+{
+	// 有关 tasks.json 格式的文档，请参见
+	// https://go.microsoft.com/fwlink/?LinkId=733558
+	"version": "2.0.0",
+	"options": {
+		"cwd": "${workspaceFolder}/build/"
+	},
+	"tasks": [
+		{
+			"label": "cmake",
+			"command": "cmake",
+			"args": [
+				"../src/",
+			],
+		},
+		{
+			"label": "make",
+			"command": "make",
+			"args": [],
+		},
+		{
+			"label": "build c++",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"cmake",
+				"make"
+			]
+		},
+	]
+}

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+//结构体
+message DropGachaList
+{
+    int32 type = 1;   // 1 是英雄 2 家具
+    int32 id = 2;
+    int32 count = 3; // 大于0 表示碎片 0 表示抽到英雄或者家具
+}
+
+message GachaData
+{
+    int32 count = 1;
+    int32 heroid = 2;  // -1 已经领取  0 未自选  > 0 已自选英雄id
+    int32 type = 3;
+    int32 totalCnt = 4;
+    int32 turn = 5; // 0 是小保底  1 大保底
+}
+
+//开始招募
+message ReqStartGacha
+{
+    int32 id = 1;
+    bool isOneTime = 2;
+}
+
+//招募返回
+message ResStartGacha
+{
+    GachaData gachaData = 1;
+    repeated DropGachaList dropStringList = 2;
+}
+
+//请求招募数据
+message ReqGacha
+{
+
+}
+
+//返回招募数据
+message ResGacha
+{
+   repeated GachaData gachaData = 1;
+}
+
+
+//领取自选英雄
+message ReqGacheAwards
+{
+    int32 heroId = 1;
+    int32 type = 2;
+}
+
+//返回领取自选英雄
+message ResGacheAwards
+{
+    GachaData gachaData = 1;
+    int32 code  = 2;
+    DropGachaList  award = 3;
+}

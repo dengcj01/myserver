@@ -1,0 +1,71 @@
+
+syntax = "proto3";
+
+// 任务结构
+message TaskData
+{
+	int32 id=1; // 任务id
+	int32 state=2; // 0:未领取1:已领取
+	repeated int32 progress=3; // 当前进度
+}
+
+// 任务信息
+message TaskDataInfo
+{
+    repeated TaskData task=1;
+    repeated int32 idList=2; // 每日任务id列表(服务器计算)
+    int32 type=3; // 1:新手 2:每日任务 3:章节
+}
+
+//任务状态
+message TaskStatus
+{
+    int32 type=1;
+    int32 id=2; 
+    int32 state=3;
+}
+
+// 请求任务数据
+message ReqTaskInfo
+{
+
+}
+
+// 请求任务数据返回
+message ResTaskInfo
+{
+    repeated TaskDataInfo task=1;
+}
+
+
+// 领取任务数据奖励
+message ReqRecvTaskRd
+{
+    int32 type=1;
+    repeated int32 taskids=2; // 可领取的任务id列表
+}
+
+// 领取任务数据奖励返回
+message ResRecvTaskRd
+{
+    repeated TaskStatus taskStatus = 1;
+}
+
+// 任务进度数据变化
+message NotifyTaskUpdate
+{
+    repeated TaskDataInfo task=1;
+}
+
+message ResetTaskInfo
+{
+    int32 type=1; // 1:新手 2:每日任务 3:章节
+    repeated int32 idList=2; // 每日任务id列表(服务器计算)
+}
+
+
+// 任务重置,每周,每日这种
+message NotifyTaskReset
+{
+    repeated ResetTaskInfo data=1; 
+}

@@ -1,0 +1,125 @@
+
+syntax = "proto3";
+
+
+
+// 订单内容
+message CarriageOrderContent
+{
+    int32 idx=1; // 物品下标
+    repeated int32 content=2; // 订单要求1:武器部位2:阶级3:数量 
+    int32 status=3; // 订单状态0:未提交1:提交了
+    repeated string uids=4; // 装备uid
+}
+
+// 马车数据
+message CarriageOrder
+{
+    string uid=1;// 订单id
+    uint32 endTime=2; // 结束时间 
+    repeated CarriageOrderContent data=4; // 订单内容
+    int32 level=5; // 订单等级
+    int32 status=6; // 马车状态 0:未运行1:已运行
+    int32 idx=7; // 第几个马车
+}
+
+// 请求马车数据
+message ReqCarriageInfo
+{
+
+}
+
+// 请求马车数据返回
+message ResCarriageInfo
+{
+    repeated CarriageOrder data=1;
+}
+
+
+// 领取奖励
+message ReqCarriageRecv
+{
+    string uid=1;// 订单id
+}
+
+// 领取奖励返回,后端推送NotifyAddNewCarriageOrder
+message ResCarriageRecv
+{
+    string uid=1;// 订单id
+}
+
+
+// 提交马车订单
+message ReqCommitCarriageOrder
+{
+    string uid=1;// 订单id
+    repeated string uids=2; // 装备唯一id
+    int32 idx=3; // 物品下标
+}
+
+// 提交马车订单返回
+message ResCommitCarriageOrder
+{
+    string uid=1;// 订单id
+    uint32 endTime=2; // 结束时间 
+    repeated string uids=3; // 装备唯一id
+    int32 idx=4; // 物品下标
+    int32 status=5; // 马车状态 0:未运行1:已运行
+}
+
+// 刷新订单
+message ReqRefCarriageOrder
+{
+    string uid=1;// 订单id
+}
+
+
+// 刷新订单返回
+message ResRefCarriageOrder
+{
+    string uid=1;// 订单id
+    uint32 endTime=2; // 结束时间 
+}
+
+// 刷新订单的倒计时结束了,告诉下后端,uid的数据可以删除了.后端这边不挂定时器,后端推送NotifyAddNewCarriageOrder
+message ReqCarriageTimeEnd
+{
+    string uid=1;// 订单id
+}
+
+
+// 加速马车
+message ReqSpeedCarriage
+{
+    string uid=1;// 订单id
+}
+
+
+//加速马车返回
+message ResSpeedCarriage
+{
+    string uid=1;// 订单id
+    uint32 endTime=2; // 结束时间 只有未运行的马车endTime值==0,表示加速完成旧数据需要清理,后端推送NotifyAddNewCarriageOrder
+}
+
+// 新增订单,功能开启器/或者玩家等级变化/或者具体功能相关
+message NotifyAddNewCarriageOrder
+{
+    repeated CarriageOrder data=1;
+}
+
+// 钻石快速自动装货
+message ReqQuicklyComCarriage
+{
+    string uid=1;// 订单id
+    int32 idx=2; // 物品下标
+}
+
+// 钻石快速自动装货
+message ResQuicklyComCarriage
+{
+    string uid=1;// 订单id
+    int32 idx=2; // 物品下标
+    int32 status=3; // 马车状态 0:未运行1:已运行
+    uint32 endTime=4; // 结束时间 
+}

@@ -1,0 +1,125 @@
+
+syntax = "proto3";
+
+
+// 槽位信息
+message ProdutionSlotInfo
+{
+    int32 index=1; // 槽位索引
+    int32 productionId=2; // 图纸id
+    string startTime=3; // 生成图纸的开始时间
+    int32 totalTime=4; // 生成图纸要的时间/秒
+    int32 count=7; // 生产数量
+}
+
+// 制造的格式数据
+message ProductData
+{
+    int32 hasProductSlotNum=1; // 已解锁槽位
+    repeated ProdutionSlotInfo produtionSlotInfos=2;
+}
+
+// 图纸信息
+message FormulaInfo
+{
+	int32 id=1; // 图纸id  
+    int32 lastProductTime=2; // 生产时间,没啥用
+    bool isFavorite=3; // 收藏标记
+    int32 nowMilestone=4; // 里程碑id
+    int32 productCount=5; // 该图纸已生产装备数量
+    int32 lockState=6; // 0未解锁 1已解锁
+    uint32 endTime=7; // 结束时间
+    int32 flag=8; // 结束时间内是否真正获得了改图纸0:没有1有
+}
+
+
+// 请求制造信息
+message ReqMakeProInfo
+{
+
+}
+
+// 请求制造信息返回
+message ResMakeProInfo
+{
+    repeated FormulaInfo product=1; // 图纸数据
+    ProductData productData=2; // 槽位数据
+}
+
+
+// 请求解锁图纸
+message ReqUnlockFormula
+{
+	int32 id=1; // 图纸id
+}
+
+// 请求解锁图纸返回
+message ResUnlockFormula
+{
+	int32 id=1; // 图纸id
+    FormulaInfo product=2; // 图纸信息
+}
+
+// 服务器通知图纸信息发送变化
+message NotifyUpFormulaInfo
+{
+    FormulaInfo product=1;
+}
+
+
+// 请求开始制造装备
+message ReqStartProduct
+{
+    int32 productionId=1; // 图纸id  
+    repeated string uids=2; // 消耗的装备uid列表
+}
+
+// 请求开始制造装备返回
+message ResStartProduct
+{
+    ProdutionSlotInfo produtionSlotInfo=1;
+}
+
+// 制造完成,收集这个装备
+message ReqCollectProduction
+{
+    int32 index=1;
+}
+
+// 制造完成,收集这个装备返回
+message ResCollectProduction
+{
+    ProdutionSlotInfo produtionSlotInfo=1;
+    int32 code = 2;
+}
+
+
+// 请求扩展制造旁边的孔位
+message ReqExtendSlot
+{
+    bool isGold=1; // fasle 金币,true 钻石
+}
+
+// 请求扩展制造旁边的孔位返回
+message ResExtendSlot
+{
+    ProdutionSlotInfo produtionSlotInfo=1;
+    int32 hasProductSlotNum=2;
+}
+
+// 加速生产装备
+message ReqQuickenProduct
+{
+    int32 index=1;
+	int32 costEnergy=2; // 加速
+	int32 costGem=3;   // 钻石立即获得
+}
+
+// 标记图纸是否喜欢
+message ReqFavoriteProduction
+{
+    bool isTrue=1; // 标记是否喜欢
+	int32 id=2; // 图纸id
+}
+
+

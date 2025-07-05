@@ -1,0 +1,28 @@
+
+
+syntax = "proto3";
+
+
+
+
+
+
+// 请求功能开启信息
+message ReqFunctionOpenInfo
+{
+
+}
+
+
+// 请求功能开启信息返回
+message ResFunctionOpenInfo
+{
+    repeated int32 list=1;
+}
+
+
+// 通知有新的功能开启
+message NotifyFunctionOpenUpdate
+{
+    repeated int32 list=1;  // 新增的功能id
+}

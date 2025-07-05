@@ -1,0 +1,51 @@
+
+
+
+syntax = "proto3";
+
+// 请求累计充值信息
+message ReqCumulativeChargeInfo
+{
+
+}
+
+// 累计充值数据
+message CumulativeChargeData
+{
+    int32 status=1; // 领取状态 0:未领取1:已领取
+    int32 money=2; // 已充值金额
+    int32 id=3; // 礼包id
+}
+
+
+// 请求累计充值信息返回
+message ResCumulativeChargeInfo
+{
+    repeated CumulativeChargeData data=1;
+}
+
+
+// 请求领取累计充值奖励
+message ReqCumulativeChargeInfoRecv
+{
+    int32 id=1; // 礼包id
+}
+
+// 请求累计充值信息
+message ResCumulativeChargeInfoRecv
+{
+    int32 id=1; // 礼包id
+}
+
+// 累计充值金额变化数据
+message CumulativeChargeDataMoney
+{
+    int32 money=1; // 已充值金额
+    int32 id=2; // 礼包id
+}
+
+// 充值金额变化
+message NotifyCumulativeChargeUpdate
+{
+    repeated CumulativeChargeDataMoney data=1;
+}

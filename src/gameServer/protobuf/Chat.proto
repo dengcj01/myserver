@@ -1,0 +1,97 @@
+
+
+syntax = "proto3";
+
+import "Player.proto";
+
+message ChatData
+{
+	string pid=1; // 玩家id
+	string content=2; // 内容
+	uint32 sendTime=3; // 发送时间
+}
+
+
+message AllChatData
+{
+	string pid=1;
+	repeated ChatData data=2; 
+}
+
+// 请求聊天数据
+message ReqChatInfo
+{
+	int32 channel=1; // 频道id 1:世界 2:系统 3:公会 4:私聊 5:好友
+}
+
+
+// 请求聊天数据返回
+message ResChatInfo
+{
+	int32 channel=1; 
+	repeated PayerBaseInfo baseInfo=2; // 玩家基础数据
+	repeated AllChatData data=3;
+}
+
+// 发送聊天
+message ReqSendChat
+{
+	int32 channel=1; 
+	string content=2;
+	string otherPid=3; // 好友id或者私聊的玩家id
+}
+
+
+// 推送一条新的聊天数据
+message NotifyAddNewChat
+{
+	int32 channel=1; 
+	ChatData data=2;
+	PayerBaseInfo baseInfo=3; // 玩家基础数据
+}
+
+
+
+
+// 连服获取聊天数据
+message ReqGetCrossChatData
+{
+	int32 channel=1; 
+	string pid=2;
+	repeated string pids=3; // 私聊或者好友id列表
+}
+
+// 主连服返回玩家的基础数据
+message ResCrossPlayerBaseInfo
+{
+	repeated PayerBaseInfo baseInfo=1; // 玩家基础数据
+	string pid=2;
+	int32 channel=3;
+}
+
+// 客户端发送的聊天消息转给主连服
+message ReqCrossSendChat
+{
+	int32 channel=1; 
+	string content=2;
+	string otherPid=3; // 好友id或者私聊的玩家id
+	string pid=4; // 发送者id
+}
+
+
+// 服务器收到主连服的聊天消息
+message ResCrossSendChat
+{
+	int32 channel=1; 
+	ChatData data=2;
+	repeated PayerBaseInfo baseInfo=3; // 玩家基础数据
+}
+
+// 主连服向其他服发送新增聊天消息(私聊/好友)
+message ReqAddNewChatData
+{
+	int32 channel=1; 
+	string content=2;
+	string otherPid=3; // 好友id或者私聊的玩家id
+	string pid=4; // 发送者id	
+}

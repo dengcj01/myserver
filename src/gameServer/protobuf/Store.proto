@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+//商店物品列表
+message GoodsData 
+{
+	int32 id =1; 
+	int32 discount =2;
+    int32 buyCount = 3;
+}	
+
+//商店类型数据
+message StoreSellData 
+{
+	int32 id = 1; 
+	int32 refreshTime = 2;
+	int32 refCount = 3;
+	repeated GoodsData goodsData = 4;
+}
+
+//请求打开商店
+message ReqStoreOpen
+{
+
+}
+//打开商店返回
+message ResStoreOpen
+{
+    repeated StoreSellData sellData = 1;
+}
+
+//商店刷新
+message ReqStoreRefresh
+{
+    int32 id = 1;
+}
+
+//商店刷新返回
+message ResStoreRefresh
+{
+	int32 code = 1;
+    StoreSellData sellData = 2;
+}
+
+//商店购买
+message ReqStoreBuy
+{
+    int32 goodsId = 1;
+    int32 goodsCount = 2;
+}
+
+message ResStoreBuy
+{
+	int32 code = 1;
+	int32 storeType = 2;
+	GoodsData goodsData = 3;
+}
+

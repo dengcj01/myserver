@@ -1,0 +1,76 @@
+
+syntax = "proto3";
+
+
+
+// 使用兑换码
+message ReqUseCdkey
+{
+    string cdKey=1; // 兑换码
+}
+
+// 保存新手引导数据
+message ReqSaveNewPeopleGuide
+{
+    int32 id=1; // 保存的引导id
+}
+
+
+// 请求新手引导数据
+message ReqGetNewPeopleGuide
+{
+
+}
+
+
+// 返回新手引导数据
+message ResGetNewPeopleGuide
+{
+    repeated int32 data=1;
+}
+
+// 完成指定引导步骤,发奖励
+message ReqSendNewPeopleGuideRd
+{
+    int32 id=1; // 新手引导id
+}
+
+// 服务器通知客户端弹窗
+message NotifyAddNewTips
+{
+    string content=1; // 内容
+    int32 type=2; // 弹窗类型 1:默认弹框 2: 跑马灯
+}
+
+// 请求快捷购买
+message ReqQuickBuy
+{
+    int32 id=1; // 物品/货币id
+    int32 count=2; // 买多少份
+}
+
+//请求保存npc掉落奖励
+message ReqSaveNpcGift
+{
+    repeated int32 ids=1; // 奖励列表
+}
+
+//请求未领取npc奖励
+message ReqNpcGiftData
+{
+
+}
+
+//未领取npc奖励返回
+message ResNpcGiftData
+{
+    repeated int32 ids=1; // 奖励列表返回
+}
+
+//请求领取npc掉落奖励
+message ReqNpcGiftRecv
+{
+    repeated int32 ids=1; // 奖励列表
+    
+}
+

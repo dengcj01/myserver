@@ -1,0 +1,37 @@
+
+syntax = "proto3";
+
+
+// 请求充值数据
+message ReqChargeInfo
+{
+
+}
+
+// 充值数据
+message ChargeData
+{
+    int32 chargeId=1; // 充值id
+    int32 status=2; // 是否首次充值过了 0:没有1有
+}
+
+// 请求充值数据返回
+message ResChargeInfo
+{
+    repeated ChargeData data=1;
+}
+
+
+// 直充直充返回通知
+message NotifyRetCharge
+{
+    int32 chargeId=1; // 充值id
+}
+
+// 内网请求充值,发完后,后面的流程是和正式充值是一样的
+message ReqStartCharge
+{
+    int32 chargeId=1; // 充值id
+    int32 money = 2; // 充值金额
+    string extra=3; // 额外参数,数据和正式充值里面的extra_params格式是一样的 type=0,id=1,... 
+}

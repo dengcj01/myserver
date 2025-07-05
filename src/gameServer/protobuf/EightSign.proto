@@ -1,0 +1,57 @@
+
+
+syntax = "proto3";
+
+
+
+
+
+// 请求八日签到数据
+message ReqEightSignInfo
+{
+    int32 id=1; // 活动id
+}
+
+// 请求八日签到数据返回
+message ResEightSignInfo
+{
+    int32 id=1; // 活动id
+    repeated int32 days=2; // 已签到天数
+    int32 loginDay=3; // 已登入天数
+    bool status=4; // 活动开启奖励领取状态(0:未领取1:已领取)
+}
+
+
+// 请求签到
+message ReqEightSign
+{
+    int32 id=1; // 活动id
+    int32 day=2; // 天数
+}
+
+
+// 请求签到返回
+message ResEightSign
+{
+    int32 id=1; // 活动id
+    int32 day=2; // 天数
+}
+
+// 领取活动开启奖励
+message ReqRecvEightSignRd
+{
+    int32 id=1; // 活动id
+}
+
+
+// 领取活动开启奖励返回
+message ResRecvEightSignRd
+{
+    int32 id=1; // 活动id
+}
+
+// 在线跨天通知签到天数增加
+message NotifyAddSignDay
+{
+    int32 id=1; // 活动id
+}

@@ -1,0 +1,480 @@
+syntax = "proto3";
+import "Equip.proto";
+
+
+
+// 家具位置
+message VectorInfo 
+{
+	int32 x=1;
+    int32 y=2;
+}
+
+// 摆到家具上的的装备信息
+message ShowItem
+{
+	int32 idx=1; // 索引位置
+	string guid=2; // 装备guid
+}
+
+// 家具信息
+message FurnitureData 
+{
+	string guid=1;	// 唯一id
+	int32 id=2;		// 家具id
+	VectorInfo minPos=3;
+	VectorInfo maxPos=4;
+	int32 level=5; // 家具等级
+	bool isFlip=6; // 是否翻转
+ 	bool isStore=7; // 是否存入
+	int32 skinId=8; // 皮肤id
+	int32 upgradeStartTime=9; // 升级开始时间
+	int32 upgradeCompleteTime=10;	// 升级结束时间
+	repeated string helpPlayerList=11; // 帮助家具升级的玩家列表
+}
+
+// 订单数据
+message SellData 
+{
+	string id=1; // 订单唯一id
+	int32 type=2; // npc类型
+	int32 characterId=3;
+	int32 characterLv=4;
+	VectorInfo pos=5;
+	int32 price=6;
+	ItemInfo itemInfo = 7; // 出售或者购买物品
+	int32 talkType=9;
+	int32 addEnergy=10; // 闲聊变化的善意值
+	int32 priceType=11; // 涨价还是折扣类型
+	string fuid=12; // 家具唯一id
+	int32 idx=13; // npc索引
+	int32 npcType=14; // npc类型
+	uint32 makeEndTime=15; // 打造npc结束时间
+	int32 makeCnt=16; // 已打造数量
+	int32 maxCnt=17; // 需要打造的最大数量
+	repeated int32 equipIds=18; // 可选择的装备id列表
+	int32 energy=19; // 非闲聊变化的善意值
+}
+
+message SellTypeData 
+{
+	int32 type=1; // npc类型
+	int32 finishTime=2; // 完成该订单时间
+	int32 finishCount=3; // 购买物品的次数
+	int32 createTime=4; // 创建该订单的时间
+	int32 createCount=5; // 已创建该订单次数
+}
+
+message ShopWallData 
+{
+	int32 index=1;
+	int32 id=2;
+}
+ 
+// 房间数据
+message RoomData 
+{
+	int32 id=1;	// 解锁id
+	int32 extendStartTime=2; // 扩建开始时间
+	int32 extendCompleteTime=3;// 扩建结束时间
+	repeated ShopWallData wallDatas=4; 
+	repeated string helpPlayerList=5; // 帮助扩建升级的玩家列表
+}
+
+message CustomerUpdateInfo
+{
+	string sellId=1;
+	VectorInfo pos=2;
+}   
+
+// 请求家具数据
+message ReqFurnitureInfo
+{
+
+}
+
+// 请求家具数据返回
+message ResFurnitureInfo
+{
+    repeated RoomData roomDatas = 1;	// 扩建的房间数据
+    repeated FurnitureData furnitureDatas = 2; // 家具信息
+    int32 floorId = 3; // 当前地板id
+}
+
+// 通知客户端新增了家具
+message NotifyAddNewFurnitrue
+{
+	repeated FurnitureData furnitureDatas=1;
+}
+
+// 请求离线订单数据
+message ReqOfflineOrder
+{
+
+}
+
+// 请求离线订单数据
+message ResOfflineOrder
+{
+
+}
+
+
+
+// 请求npc订单数据
+message ReqNpcInfo
+{
+
+}
+
+// 请求npc订单数据
+message ResNpcInfo
+{
+	repeated SellData sellData=1; //订单数据
+	repeated SellTypeData sellTypeData = 2; // npc类型数据
+}
+
+
+// 请求npc上门
+message ReqSetSellOrder
+{
+    int32 uid=1; // 顾客uid  透传参数
+	int32 type=2; // 顾客类型
+	VectorInfo pos=3;// 透传字段
+	int32 charId=4;	// 透传字段
+	int32 charLv=5;// 透传字段
+	ItemInfo itemInfo = 6;//出售或者物品
+	string fuid=7; // 家具唯一id
+	int32 idx=8; // npc 索引
+	int32 npcType=9; // npc类型
+}
+
+
+message NpcData
+{
+	int32 idx=1; //npc 索引
+	ItemInfo itemInfo=2; // 物品数据
+	int32 type=3; // 类型 6:物品npc 7装备npc 9:交易(对赌)npc 10图纸npc
+	uint32 endTime=4; // 上门时间
+	repeated int32 equipIds=5; // 可选择的装备id列表
+}
+
+// 通知新增了npc
+message NotifySellOrder
+{
+	repeated NpcData data = 1;// 物品数据
+}
+
+// 请求npc上门返回
+message ResSetSellOrder 
+{
+    int32 uid=1;// 顾客uid  透传参数
+	SellData sellData=2; // 生产的订单
+}
+
+// 出售上门的物品
+message ReqShopSell
+{
+    string sellId=1;
+}
+
+// 出售上门的物品返回
+message ResShopSell
+{
+	string gold=1;
+	int32 energy=2; // 获得的心意值
+	SellTypeData sellTypeData=3;
+	string sellId=4;
+	int32 code = 5;
+}
+
+// 购买物品
+message ReqShopBuy
+{
+    string sellId=1;
+}
+
+// 购买物品返回
+message ResShopBuy 
+{
+	int32 energy=1;
+	SellTypeData sellTypeData=2;
+	string sellId=3;
+}
+
+// 装备推荐
+message ReqShopAdvise
+{
+    string sellId=1;
+	string guid=2; // guid(物品或者装备)
+	int32 count=3; // 物品或者装备数量
+}
+
+// 装备推荐返回
+message ResShopAdvise
+{
+    string sellId=1;
+	string guid=2; // guid(物品或者装备)
+	int32 count=3; // 物品或者装备数量
+}
+
+// 拒绝
+message ReqShopRefuse
+{
+    string sellId=1;
+}
+
+// 拒绝返回
+message ResShopRefuse
+{
+	SellTypeData sellTypeData=1;
+	string sellId=2;
+}
+
+// 多付
+message ReqShopPayMoreOrLess
+{
+    string sellId=1;
+	bool isPayMore=2;
+}
+
+// 多付返回
+message ResShopPayMoreOrLess
+{
+	int32 energy=1; // 善意值
+}
+
+// 闲聊
+message ReqShopTalk
+{
+    string sellId=1;
+}
+
+// 闲聊返回
+message ResShopTalk
+{
+    string sellId=1;
+	int32 talkType=2;
+	int32 addEnergy=3;
+}
+
+// 涨价或者折扣
+message ReqShopRiseOrDisCount
+{
+    string sellId=1;
+	bool isRise = 2;
+	bool isGuide=3;
+
+}
+
+// 涨价或者折扣返回
+message ResShopRiseOrDisCount
+{
+	int32 energy=4; // 善意值
+}
+
+
+// 房子扩建
+message ReqExtendShop
+{
+    int32 id=1;
+	bool isGold=2;
+}
+
+// 房子扩建返回
+message ResExtendShop
+{
+	RoomData updateRoomData=1;
+}
+
+// 房子加速扩建
+message ReqCompleteExtendShop
+{
+    int32 id=1;
+	bool isUseGemQuick=2;
+}
+
+// 房子加速扩建返回
+message ResCompleteExtendShop
+{
+	RoomData updateRoomData=1;
+}
+
+// 购买家具
+message ReqBuyFurniture
+{
+	int32 id=1;
+	VectorInfo minPos=2;
+	VectorInfo maxPos=3;
+	bool isFlip=4;
+}
+
+// 购买家具返回
+message ResBuyFurniture
+{
+	FurnitureData furnitureUpdateData=1;
+}
+
+// 升级家具
+message ReqUpgradeFurniture
+{
+    string guid=1;
+	int32 costType =2; // 1 金币 2钻石 3 碎片
+	VectorInfo minPos=3;
+	VectorInfo maxPos=4;
+	repeated CustomerUpdateInfo updateCustomerDatas=5;
+}
+
+// 升级家具返回
+message ResUpgradeFurniture
+{
+	FurnitureData furnitureUpdateData=1;
+	int32 code = 2;
+}
+
+// 升级家具完成
+message ReqCompleteUpgradeFurniture
+{
+    string guid=1;
+	bool isUseGemQuick=2; //是否使用了钻石来加速
+	VectorInfo minPos=3;
+	VectorInfo maxPos=4;
+	repeated CustomerUpdateInfo updateCustomerDatas=5; 
+}
+
+// 升级家具完成返回
+message ResCompleteUpgradeFurniture
+{
+	FurnitureData furnitureUpdateData=1;
+	int32 code = 2;
+}
+
+// 存放家具
+message ReqStoreFurniture
+{
+    string guid=1;
+}
+
+// 存放家具返回
+message ResStoreFurniture
+{
+	string guid=1;
+}
+
+// 编辑家具
+message ReqEditFurniture
+{
+    string guid=1;
+	bool isFlip=2;
+	VectorInfo minPos=3;
+	VectorInfo maxPos=4;
+	repeated CustomerUpdateInfo updateCustomerDatas=5; 
+}
+
+// 编辑家具返回
+message ResEditFurniture
+{
+	FurnitureData furnitureUpdateData=1; 
+}
+
+// 装备放到家具上去
+message ReqAddGoods
+{
+    string eid=1; // 装备唯一id
+	string guid=2; // 家具唯一id
+	int32 position=3; // 放入位置
+	int32 type=4; // 0:放入 1:取回
+}
+
+// 装备放到家具上去返回
+message ResAddGoods
+{
+	string eid=1;// 装备唯一id
+    string owner=2; // 所有者id
+	int32 ownerType=3; // 所有者类型(英雄类型,家具类型...)
+	int32 position=4; // 索引位置(装备穿在英雄那个位置,家具放在哪个位置)
+}
+
+// 修改当前地板
+message ReqChangeFloor
+{
+    int32 id = 1;
+}
+
+// 修改当前地板返回
+message ResChangeFloor
+{
+    int32 floorId = 1; // 当前地板id
+}
+
+// 请求npc数据
+message ReqNpcData
+{
+
+}
+
+// 请求npc数据返回
+message ResNpcData
+{
+	repeated NpcData data = 1;// 物品数据
+}
+
+// npc交易装备
+message ReqNpcTrade
+{
+    string sellId=1;
+	string eid=2; // 装备唯一id
+}
+
+// npc交易装备返回
+message ResNpcTrade
+{
+    string sellId  = 1;  // 订单id
+    uint32 endTime = 2;  // 上门时间
+}
+
+// 更新特殊npc数据/打造装备npc
+message NotifySpecialNpcData
+{
+	string sellId=1; // 订单id
+	int32 cnt=2; // 打造数量/打了几个装备
+	uint32 endTime=4; // 上门时间
+}
+
+// 打造装备npc离开
+message ReqMakeEquipNpcLeave
+{
+    string sellId=1;
+	int32 opt=2; // 0:正常离开1:主动离开的
+}
+
+// 打造装备npc离开
+message ResMakeEquipNpcLeave
+{
+    string sellId=1;
+	uint32 endTime=2; // 上门时间
+}
+
+// 特殊npc数据
+message SpecialNpcData
+{
+	int32 npcType=1; // npc类型 1:图纸npc2:交易npc
+	int32 idx=2; // 配置表索引
+	ItemInfo itemInfo = 3; // 物品信息
+	repeated int32 equipIds=4; // 可选择的装备id列表
+	uint32 endTime=5; // 上门时间
+}
+
+// 新增特殊npc
+message ReqAddNewSpecialNpc
+{
+	repeated SpecialNpcData data=1; // 特殊npc数据
+}
+
+
+// 新增特殊npc返回
+message ResAddNewSpecialNpc
+{
+	repeated SpecialNpcData data=1; // 特殊npc数据
+}
+

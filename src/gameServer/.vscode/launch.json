@@ -1,0 +1,29 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch",
+            "program": "${workspaceFolder}/bin/game",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin",
+            "preLaunchTask": "build c++",
+        },
+        {
+            "type": "LuaHelper-Debug",
+            "request": "launch",
+            "name": "lua",
+            "cwd": "${workspaceFolder}/bin",
+            "luaFileExtension": "",
+            "connectionPort": 30000,
+            "stopOnEntry": false,
+            "useCHook": false,
+            "autoPathMode": true,
+            "distinguishSameNameFile": true
+        },
+    ]
+}

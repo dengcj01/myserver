@@ -1,0 +1,221 @@
+syntax = "proto3";
+
+import "Player.proto";
+
+enum ServerErrorCode 
+{
+    Success             = 0;   // 成功
+    NoMatch             = 1;   // 服务器id不匹配
+    IsOnline            = 2;   // 账号已在线
+    PasswordError       = 3;   // 密码错误
+    BannedAccount       = 4;   // 账号已被封禁
+    DbAuthError         = 5;   // db登入认证错误
+    DbSelectError       = 6;   // db查询玩家错误
+    DbCreateError       = 7;   // db创角错误
+    NoAccount           = 8;   // 账号不存在
+    BannedIp            = 9;   // 封ip
+    NameRepeated        = 10;  // 名字重复
+    NameError           = 11;  // 名字非法
+    NoAuth              = 12;  // 未登入验证就查询玩家
+    PidRepeated         = 13;  // 玩家id重复
+    PlayerIsOnline      = 14;  // 玩家已在线
+    PlayerIsNotOnline   = 15;  // 玩家不在线
+    AccountExists       = 16;  // db创角已存在该玩家账号,pf,server
+    AccountExistsDb     = 17;  // db错误(创角已存在该玩家账号,pf,server)
+    DbErrorBase         = 18;  // db加载玩家基础数据错误
+    NoFindSession       = 19;  // 找不到该会话
+    ReAccountNoPlayer   = 20;  // 账号在线但是玩家不在线
+    NoAuthCreate        = 21;  // 未登入验证就创建玩家
+    NoAuthEnter         = 22;  // 未登入验证就进入游戏
+    LoadModuleDataError = 23;  // db加载玩家模块数据错误
+    UpdateTimeError     = 24;  // db更新玩家登入时间错误
+    CreateSqlError      = 25;  // 创建dbsql语句错误
+    NoRegEnterGame      = 26;  // 没有角色就直接进入游戏
+    HavePidCreate       = 27;  // 有角色了还创角
+    NameToLongError     = 28;  // 名字太长
+    AccountIllegal      = 29;  // 账号非法
+}
+
+
+  // 查询玩家 
+message ReqDbSelectPlayer
+{
+    uint64 csessionId   = 1;
+    uint32 fromServerId = 2;
+    string account      = 3;
+    string pf           = 4;
+    uint64 sessionId    = 5;
+}
+
+  // 查询玩家返回 
+message ResDbSelectPlayer
+{   
+    uint64 pid        = 1;  // 玩家id
+    uint64 csessionId = 2;
+    uint32 code       = 3;
+    uint64 sessionId  = 4;
+}
+
+
+  // 创建玩家 
+message ReqDbCreatePlayer
+{
+    uint32 sex          = 1;
+    string name         = 2;
+    uint64 pid          = 3;
+    uint64 csessionId   = 4;
+    string account      = 5;
+    string pf           = 6;
+    uint32 fromServerId = 7;
+    uint32 serverId     = 8;
+    uint64 sessionId    = 9;
+
+}
+
+  // 创建玩家返回 
+message ResDbCreatePlayer
+{
+    uint32 sex        = 1;  // 1:男 2:女
+    string name       = 2;  // 玩家名字
+    uint64 pid        = 3;
+    uint32 code       = 4;
+    uint64 csessionId = 5;
+    uint64 sessionId  = 7;
+}
+
+
+  // 请求进入游戏 
+message ReqDbEnterGame
+{
+    uint64 pid        = 1;
+    uint64 csessionId = 2;
+    uint64 sessionId  = 3;
+}
+
+  // 请求进入游戏返回 
+message ResDbEnterGame
+{
+    uint64 pid        = 1;
+    uint32 code       = 2;
+    uint64 csessionId = 3;
+    uint64 sessionId  = 4;
+}
+
+
+
+
+  // db返回玩家基础数据 
+message ResReturnPlayerBaseData
+{
+    uint64         pid        = 1;
+    PlayerBaseData data       = 2;
+    uint64         csessionId = 3;
+    uint64         sessionId  = 4;
+}
+
+
+
+  // db返回玩家模块数据 
+message ResReturnPlayerModuleData
+{
+    uint32 moduleId   = 1;
+    string data       = 2;
+    uint64 csessionId = 3;
+    uint64 sessionId  = 4;
+}
+
+
+  // db保存玩家基础数据 
+message ReqSavePlayerBaseData
+{
+    uint64         pid  = 1;
+    PlayerBaseData data = 2;
+    int32          opt  = 3;  // 玩家操作 0:默认保存所有1:只保存封号数据
+}
+
+
+  // db保存玩家模块数据 
+message ReqSavePlayerModuleData
+{
+    uint64 pid      = 1;
+    uint32 moduleId = 2;
+    string data     = 3;
+    uint32 serverId = 4;
+}
+
+
+  // game进程上报自身数据
+message ReqGameReport
+{
+    uint32 serverId = 1;
+}
+
+
+message ReqGameQuit
+{
+
+}
+
+  // 保存排行榜模块数据
+message ReqSaveRankData
+{
+    string name     = 1;
+    string data     = 2;
+    uint32  serverId = 3;
+    uint32  rankLen  = 4;
+}
+
+  // 保存全局模块数据
+message ReqSaveGlobalData
+{
+    uint32  moduleId = 1;
+    uint32  serverId = 2;
+    string data     = 3;
+}
+
+  // 删除排行榜数据
+message ReqDelRankData
+{
+    string name     = 1;
+    uint32  serverid = 2;
+}
+
+  // 删除全局数据
+message ReqDelGlobalData
+{
+    uint32 moduleId = 1;
+}
+
+// 玩家登入注册玩家基础数据到跨服/跨服更新到db
+message ReqRegPlayerBaseInfo
+{
+ 
+}
+
+//更新玩家基础数据到跨服/跨服更新到db
+message ReqUpdatePlayerBaseInfo
+{
+    string data = 1;
+    uint64 pid  = 2;
+}
+
+  // 改名
+message ReqDbUpdatePlayerName
+{
+    string name = 1;
+    uint64 pid  = 2;
+}
+
+  // 改名返回
+message ResDbUpdatePlayerName
+{
+    string name = 1;
+    uint64 pid  = 2;
+    uint32 code = 3;  //错误码
+}
+
+// game发消息关闭db服务器
+message ReqCloseDbServer
+{
+
+}

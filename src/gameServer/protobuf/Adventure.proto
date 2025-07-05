@@ -1,0 +1,158 @@
+syntax = "proto3";
+
+
+
+message AdvPlanData
+{
+    int32 advId =1;
+	int32 heroId= 2;
+	repeated int32 attrs = 3;
+	int32 startTime = 4;
+}
+
+message AdvTeamData
+{
+    int32 id =1;
+	repeated int32 heroIds = 2;
+}
+
+message AdvThrought 
+{
+	int32 advId = 1; // 已通过id
+	int32 count = 2; // 通过次数
+}
+
+// 完成采集
+message ReqCollectAdv 
+{
+    int32 id = 1;
+    bool finish =2; // true要把英雄下来 false继续采
+}
+
+
+// 领取宝箱奖励
+message ReqOpenAdvBox
+{
+    int32 id = 1;
+}
+
+// 设置采集英雄
+message ReqStartCollect
+{
+    int32 id = 1;
+    int32 heroId =2;
+}
+
+//布阵
+message ReqAdvTeam 
+{
+    int32 id = 1;
+    repeated int32 heroIds = 2;
+}
+
+// 进入副本
+message ReqFightStart
+{
+    int32 id = 1;
+    int32 teamId = 2;
+}
+
+
+// 战斗结束
+message ReqFightSettleFix
+{
+    int32 id = 1;
+    int32 result = 2;
+}
+
+// 完成采集返回
+message ResCollectAdv
+{
+    int32 result  = 1;
+    repeated AdvPlanData advPlanData = 2;
+
+}
+
+
+// 领取宝箱奖励返回
+message ResOpenAdvBox
+{
+ 	int32 result =1;
+	int32 id = 2;
+}
+
+//设置采集英雄返回
+message ResStartCollect
+{
+    int32 result  = 1;
+    repeated AdvPlanData advPlanData = 2;
+}
+
+message ResAdvTeam
+{
+    int32 result  = 1;
+    repeated AdvTeamData advTeamData = 2;
+}
+
+// 战斗检查返回
+message ResFightStart
+{
+    int32 result  = 1;
+}
+
+
+// 战斗结束返回
+message ResFightSettleFix
+{
+    int32 result  = 1;
+    int32 advSlotCount = 2;
+    int32 advSlotTime = 3;
+}
+
+// 请求主线关卡数据
+message ReqAllAdvData
+{
+
+}
+
+// 请求主线关卡数据返回
+message ResAllAdvData
+{
+    repeated AdvThrought advThroughtCount = 1; // 已通过关卡数据
+    repeated AdvTeamData advTeamData = 2;
+    int32 advSlotCount = 3;
+    int32 advSlotTime = 4;
+    repeated AdvPlanData advPlanData = 5;
+}
+
+// 一键采集
+message ReqOneClickCollect
+{
+
+}
+
+// 一键采集返回
+message ResOneClickCollect
+{
+    int32 code = 1;
+    repeated AdvPlanData advPlanData = 2;
+
+}
+
+// 一键扫荡
+message ReqOneClickSweeping
+{
+    int32 id = 1;   // 关卡id
+    int32 cnt = 2;  // 扫荡次数
+}
+
+// 一键扫荡返回
+message ResOneClickSweeping
+{
+    int32 id = 1;           // 关卡id
+    int32 advSlotCount = 2; // 剩余体力
+    int32 advSlotTime = 3;  // 回复体力时间
+}
+
+
+

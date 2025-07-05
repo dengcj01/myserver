@@ -1,0 +1,85 @@
+{
+	// 有关 tasks.json 格式的文档，请参见
+	// https://go.microsoft.com/fwlink/?LinkId=733558
+	"version": "2.0.0",
+	// "options": {
+	// 	"cwd": "${workspaceFolder}/gameServerProject/src/gameServer/build/"
+	// },
+	"tasks": [
+		{
+			"label": "cmakeGame",
+			"command": "cmake",
+			"args": [
+				"../src/",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/gameServer/build/"
+			},
+		},
+		{
+			"label": "makeGame",
+			"command": "make",
+			"options": {
+				"cwd": "${workspaceFolder}/gameServer/build/"
+			},
+		},
+		{
+			"label": "buildGame",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"cmakeGame",
+				"makeGame"
+			]
+		},
+		{
+			"label": "cmakeDb",
+			"command": "cmake",
+			"args": [
+				"../src/",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/dbServer/build/"
+			},
+		},
+		{
+			"label": "makeDb",
+			"command": "make",
+			"options": {
+				"cwd": "${workspaceFolder}/dbServer/build/"
+			},
+		},
+		{
+			"label": "buildDb",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"cmakeDb",
+				"makeDb"
+			]
+		},
+		{
+			"label": "cmakeGate",
+			"command": "cmake",
+			"args": [
+				"../src/",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/gateServer/build/"
+			},
+		},
+		{
+			"label": "makeGate",
+			"command": "make",
+			"options": {
+				"cwd": "${workspaceFolder}/gateServer/build/"
+			},
+		},
+		{
+			"label": "buildGate",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"cmakeGate",
+				"makeGate"
+			]
+		},
+	]
+}

@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "gameServer",
+            "program": "${workspaceFolder}/gameServer/bin/game",
+            "args": [],
+            "cwd": "${workspaceFolder}/gameServer/bin",
+            "preLaunchTask": "buildGame"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "dbServer",
+            "program": "${workspaceFolder}/dbServer/bin/db",
+            "args": [],
+            "cwd": "${workspaceFolder}/dbServer/bin",
+            "preLaunchTask": "buildDb"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "gateServer",
+            "program": "${workspaceFolder}/gateServer/bin/gate",
+            "args": [],
+            "cwd": "${workspaceFolder}/gateServer/bin",
+            "preLaunchTask": "buildGate"
+        },
+        {
+            "type": "LuaHelper-Debug",
+            "request": "launch",
+            "name": "lua",
+            "cwd": "${workspaceFolder}/gameServer/bin/",
+            "luaFileExtension": "",
+            "connectionPort": 30000,
+            "stopOnEntry": false,
+            "useCHook": false,
+            "autoPathMode": true,
+            "distinguishSameNameFile": true
+        },
+    ]
+}

@@ -1,0 +1,1 @@
+{"sql_account": "root", "game_port": 41001, "daemon": 0, "sql_passwd": "0987abc123", "db_name": "wx_actor_40001", "db_ip": "127.0.0.1", "db_port": 42001, "server_id": 40001, "server_name": "gate", "wx_glbaldata_ip": "127.0.0.1", "server_port": 44001, "log_port": 43001,"gm_lv":1}

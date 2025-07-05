@@ -1,0 +1,39 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=/data/home/gameServerProject/libs
+
+
+
+
+rm -rf ../common/pb/*
+
+
+#./protoc -I=./protobuf --cpp_out=./src/pb ./protobuf/*.proto
+#./protoc -I=./protobuf --cpp_out=../common/pb ./protobuf/*.proto
+proto_list=$(python2 -c "import protoname; print('\n'.join(protoname.seq_proto_list))")
+#echo $proto_list
+
+
+LUA_FILE="./bin/common/ProtoList.lua"
+
+echo "local protoList = {" > "$LUA_FILE"
+for proto in $proto_list; do
+    echo "    \"$proto\"," >> "$LUA_FILE"
+done
+echo "}" >> "$LUA_FILE"
+echo "return protoList" >> "$LUA_FILE"
+
+#echo "Lua 文件已生成: $LUA_FILE"
+
+for proto in $proto_list; do
+    proto_file="./protobuf/${proto}.proto"
+    #echo "正在生成: $proto_file"
+    
+    # 检查 proto 文件是否存在
+    if [ -f "$proto_file" ]; then
+        # 生成对应的 C++ 代码
+        ./protoc -I=./protobuf --cpp_out=../common/pb "$proto_file"
+    else
+        echo "警告: 文件 $proto_file 不存在"
+    fi
+done
+python2 createproto.py

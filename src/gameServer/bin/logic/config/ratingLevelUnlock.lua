@@ -1,0 +1,118 @@
+--keys:id|name|open_condition|parameter|description|icon|consume|effect|
+local ratingLevelUnlock={
+[1]={id=1,name="扩展铸造槽位",open_condition={1},parameter={2},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,2},},
+[6]={id=6,name="扩展铸造槽位",open_condition={1},parameter={10},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,3},},
+[12]={id=12,name="扩展铸造槽位",open_condition={1},parameter={13},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,4},},
+[19]={id=19,name="扩展铸造槽位",open_condition={1},parameter={20},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,5},},
+[28]={id=28,name="扩展铸造槽位",open_condition={1},parameter={25},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,6},},
+[37]={id=37,name="扩展铸造槽位",open_condition={1},parameter={28},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,7},},
+[52]={id=52,name="扩展铸造槽位",open_condition={1},parameter={30},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,8},},
+[60]={id=60,name="扩展铸造槽位",open_condition={1},parameter={32},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,9},},
+[65]={id=65,name="扩展铸造槽位",open_condition={1},parameter={35},description="扩展铸造槽位",icon="functionUnlock2",consume={},effect={3,10},},
+[2]={id=2,name="货运驿马",open_condition={1},parameter={2},description="今后，可以更方便地管理采集与战斗的相关事宜了！",icon="functionUnlock3",consume={{1,900},{2,60}},effect={8,1,1},},
+[3]={id=3,name="制造工坊",open_condition={1},parameter={14},description="与门客一起劳作能够增加铸造的效率！",icon="functionUnlock10",consume={{1,3750},{2,100}},effect={8,2,1},},
+[4]={id=4,name="涨价降价功能",open_condition={3},parameter={4},description="涨价降价功能",icon="functionUnlock15",consume={},effect={4,18},},
+[7]={id=7,name="账房",open_condition={1},parameter={17},description="请门客一起帮忙，管理铸剑阁的日常生意往来吧！",icon="functionUnlock11",consume={{1,12000},{2,80}},effect={8,3,1},},
+[8]={id=8,name="丹炉",open_condition={1},parameter={12},description="许久不用的丹炉，能够炼制出门客与装备用得上的丹药、晶石。",icon="functionUnlock12",consume={{1,1000},{2,30}},effect={8,4,1},},
+[5]={id=5,name="采集队增加",open_condition={2},parameter={1010205},description="采集队增加",icon="functionUnlock1",consume={},effect={10,1},},
+[26]={id=26,name="采集队增加",open_condition={1},parameter={10},description="采集队增加",icon="functionUnlock5",consume={},effect={10,2},},
+[35]={id=35,name="采集队增加",open_condition={1},parameter={15},description="采集队增加",icon="functionUnlock5",consume={},effect={10,3},},
+[17]={id=17,name="工坊等级上限提升",open_condition={1},parameter={11},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,3},},
+[27]={id=27,name="工坊等级上限提升",open_condition={1},parameter={16},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,4},},
+[34]={id=34,name="工坊等级上限提升",open_condition={1},parameter={21},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,5},},
+[44]={id=44,name="工坊等级上限提升",open_condition={1},parameter={26},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,6},},
+[50]={id=50,name="工坊等级上限提升",open_condition={1},parameter={31},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,7},},
+[59]={id=59,name="工坊等级上限提升",open_condition={1},parameter={36},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,8},},
+[64]={id=64,name="工坊等级上限提升",open_condition={1},parameter={41},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,8},},
+[70]={id=70,name="工坊等级上限提升",open_condition={1},parameter={46},description="工坊等级上限提升",icon="functionUnlock1",consume={},effect={9,10},},
+[10]={id=10,name="2级店铺扩建",open_condition={1},parameter={5},description="2级店铺扩建",icon="functionUnlock13",consume={},effect={2,2},},
+[16]={id=16,name="3级店铺扩建",open_condition={1},parameter={17},description="3级店铺扩建",icon="functionUnlock13",consume={},effect={2,3},},
+[25]={id=25,name="4级店铺扩建",open_condition={1},parameter={22},description="4级店铺扩建",icon="functionUnlock13",consume={},effect={2,4},},
+[43]={id=43,name="5级店铺扩建",open_condition={1},parameter={27},description="5级店铺扩建",icon="functionUnlock13",consume={},effect={2,5},},
+[53]={id=53,name="6级店铺扩建",open_condition={1},parameter={32},description="6级店铺扩建",icon="functionUnlock13",consume={},effect={2,6},},
+[61]={id=61,name="7级店铺扩建",open_condition={1},parameter={37},description="7级店铺扩建",icon="functionUnlock13",consume={},effect={2,7},},
+[66]={id=66,name="8级店铺扩建",open_condition={1},parameter={42},description="8级店铺扩建",icon="functionUnlock13",consume={},effect={2,8},},
+[71]={id=71,name="9级店铺扩建",open_condition={1},parameter={47},description="9级店铺扩建",icon="functionUnlock13",consume={},effect={2,9},},
+[13]={id=13,name="3阶武器",open_condition={1},parameter={15},description="3阶武器",icon="functionUnlock8",consume={},effect={1,1,3},},
+[14]={id=14,name="3阶防具",open_condition={1},parameter={15},description="3阶防具",icon="functionUnlock6",consume={},effect={1,2,3},},
+[15]={id=15,name="3阶饰品",open_condition={1},parameter={15},description="3阶饰品",icon="functionUnlock7",consume={},effect={1,3,3},},
+[22]={id=22,name="4阶武器",open_condition={1},parameter={20},description="4阶武器",icon="functionUnlock8",consume={},effect={1,1,4},},
+[23]={id=23,name="4阶防具",open_condition={1},parameter={20},description="4阶防具",icon="functionUnlock6",consume={},effect={1,1,5},},
+[24]={id=24,name="4阶饰品",open_condition={1},parameter={20},description="4阶饰品",icon="functionUnlock7",consume={},effect={1,1,5},},
+[31]={id=31,name="5阶武器",open_condition={1},parameter={25},description="5阶武器",icon="functionUnlock8",consume={},effect={1,1,5},},
+[32]={id=32,name="5阶防具",open_condition={1},parameter={25},description="5阶防具",icon="functionUnlock6",consume={},effect={1,2,5},},
+[33]={id=33,name="5阶饰品",open_condition={1},parameter={25},description="5阶饰品",icon="functionUnlock7",consume={},effect={1,3,5},},
+[40]={id=40,name="6阶武器",open_condition={1},parameter={30},description="6阶武器",icon="functionUnlock8",consume={},effect={1,1,6},},
+[41]={id=41,name="6阶防具",open_condition={1},parameter={30},description="6阶防具",icon="functionUnlock6",consume={},effect={1,2,6},},
+[42]={id=42,name="6阶饰品",open_condition={1},parameter={30},description="6阶饰品",icon="functionUnlock7",consume={},effect={1,3,6},},
+[47]={id=47,name="7阶武器",open_condition={1},parameter={35},description="7阶武器",icon="functionUnlock8",consume={},effect={1,1,7},},
+[48]={id=48,name="7阶防具",open_condition={1},parameter={35},description="7阶防具",icon="functionUnlock6",consume={},effect={1,2,7},},
+[49]={id=49,name="7阶饰品",open_condition={1},parameter={35},description="7阶饰品",icon="functionUnlock7",consume={},effect={1,3,7},},
+[56]={id=56,name="8阶武器",open_condition={1},parameter={40},description="8阶武器",icon="functionUnlock8",consume={},effect={1,1,8},},
+[57]={id=57,name="8阶防具",open_condition={1},parameter={40},description="8阶防具",icon="functionUnlock6",consume={},effect={1,2,8},},
+[58]={id=58,name="8阶饰品",open_condition={1},parameter={40},description="8阶饰品",icon="functionUnlock7",consume={},effect={1,3,8},},
+[21]={id=21,name="3级家具货架",open_condition={1},parameter={11},description="3级家具货架",icon="functionUnlock4",consume={},effect={6,1,3},},
+[39]={id=39,name="4级家具货架",open_condition={1},parameter={16},description="4级家具货架",icon="functionUnlock4",consume={},effect={6,1,4},},
+[55]={id=55,name="5级家具货架",open_condition={1},parameter={21},description="5级家具货架",icon="functionUnlock4",consume={},effect={6,1,5},},
+[69]={id=69,name="6级家具货架",open_condition={1},parameter={26},description="6级家具货架",icon="functionUnlock4",consume={},effect={6,1,6},},
+[72]={id=72,name="7级家具货架",open_condition={1},parameter={28},description="7级家具货架",icon="functionUnlock4",consume={},effect={6,1,7},},
+[73]={id=73,name="8级家具货架",open_condition={1},parameter={31},description="8级家具货架",icon="functionUnlock4",consume={},effect={6,1,8},},
+[74]={id=74,name="10级家具货架",open_condition={1},parameter={33},description="9级家具货架",icon="functionUnlock4",consume={},effect={6,1,10},},
+[75]={id=75,name="15级家具货架",open_condition={1},parameter={36},description="10级家具货架",icon="functionUnlock4",consume={},effect={6,1,15},},
+[76]={id=76,name="8级家具货架",open_condition={1},parameter={38},description="11级家具货架",icon="functionUnlock4",consume={},effect={6,1,8},},
+[77]={id=77,name="10级家具货架",open_condition={1},parameter={41},description="12级家具货架",icon="functionUnlock4",consume={},effect={6,1,10},},
+[78]={id=78,name="15级家具货架",open_condition={1},parameter={43},description="13级家具货架",icon="functionUnlock4",consume={},effect={6,1,15},},
+[79]={id=79,name="10级家具货架",open_condition={1},parameter={46},description="14级家具货架",icon="functionUnlock4",consume={},effect={6,1,10},},
+[80]={id=80,name="15级家具货架",open_condition={1},parameter={48},description="15级家具货架",icon="functionUnlock4",consume={},effect={6,1,15},},
+[20]={id=20,name="4级家具资源筐",open_condition={1},parameter={9},description="3级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,4},},
+[38]={id=38,name="6级家具资源筐",open_condition={1},parameter={14},description="4级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,6},},
+[54]={id=54,name="7级家具资源筐",open_condition={1},parameter={19},description="5级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,7},},
+[68]={id=68,name="8级家具资源筐",open_condition={1},parameter={24},description="6级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,8},},
+[81]={id=81,name="10级家具资源筐",open_condition={1},parameter={26},description="7级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,10},},
+[82]={id=82,name="12级家具资源筐",open_condition={1},parameter={29},description="8级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,12},},
+[83]={id=83,name="13级家具资源筐",open_condition={1},parameter={31},description="9级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,13},},
+[84]={id=84,name="15级家具资源筐",open_condition={1},parameter={34},description="10级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,15},},
+[85]={id=85,name="10级家具资源筐",open_condition={1},parameter={36},description="11级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,10},},
+[86]={id=86,name="12级家具资源筐",open_condition={1},parameter={39},description="12级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,12},},
+[87]={id=87,name="13级家具资源筐",open_condition={1},parameter={41},description="13级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,13},},
+[88]={id=88,name="15级家具资源筐",open_condition={1},parameter={44},description="14级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,15},},
+[89]={id=89,name="13级家具资源筐",open_condition={1},parameter={46},description="15级家具资源筐",icon="functionUnlock9",consume={},effect={6,2,13},},
+[9]={id=9,name="增加家具资源筐上限",open_condition={1},parameter={6},description="增加家具资源筐上限",icon="functionUnlock9",consume={},effect={5,2,2},},
+[29]={id=29,name="增加家具资源筐上限",open_condition={1},parameter={18},description="增加家具资源筐上限",icon="functionUnlock9",consume={},effect={5,2,3},},
+[45]={id=45,name="增加家具资源筐上限",open_condition={1},parameter={32},description="增加家具资源筐上限",icon="functionUnlock9",consume={},effect={5,2,4},},
+[62]={id=62,name="增加家具资源筐上限",open_condition={1},parameter={45},description="增加家具资源筐上限",icon="functionUnlock9",consume={},effect={5,2,5},},
+[11]={id=11,name="增加家具货架上限",open_condition={1},parameter={8},description="增加家具储物箱和货架数量上限",icon="functionUnlock4",consume={},effect={5,1,2},},
+[30]={id=30,name="增加家具货架上限",open_condition={1},parameter={17},description="增加家具储物箱和货架数量上限",icon="functionUnlock4",consume={},effect={5,1,3},},
+[46]={id=46,name="增加家具货架上限",open_condition={1},parameter={31},description="增加家具货架上限",icon="functionUnlock4",consume={},effect={5,1,4},},
+[63]={id=63,name="增加家具货架上限",open_condition={1},parameter={44},description="增加家具货架上限",icon="functionUnlock4",consume={},effect={5,1,5},},
+[18]={id=18,name="有无商行",open_condition={1},parameter={10},description="有无商行",icon="functionUnlock14",consume={},effect={4,3},},
+[36]={id=36,name="增加马车槽位",open_condition={1},parameter={14},description="增加马车槽位",icon="functionUnlock16",consume={},effect={7,2},},
+[51]={id=51,name="增加马车槽位",open_condition={1},parameter={19},description="增加马车槽位",icon="functionUnlock16",consume={},effect={7,3},},
+[67]={id=67,name="增加马车槽位",open_condition={1},parameter={34},description="增加马车槽位",icon="functionUnlock16",consume={},effect={7,4},},
+
+}
+local empty_table = {}
+local default_value = {
+    name = "扩展铸造槽位",
+open_condition = {1},
+parameter = {2},
+description = "扩展铸造槽位",
+icon = "functionUnlock2",
+consume = {},
+effect = {3,2},
+
+}
+local setmetatable = setmetatable
+local metatable = nil
+local function __newindex(t, k, v)
+    setmetatable(t, nil)
+    t[k] = v
+    --NE.LOG_ERROR("请不要修改表格字段!")
+    setmetatable(t, metatable)
+end
+metatable = {__index = default_value, __newindex = __newindex}
+for _, v in pairs(ratingLevelUnlock) do
+    setmetatable(v, metatable)
+end
+ 
+return ratingLevelUnlock

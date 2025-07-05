@@ -1,0 +1,255 @@
+
+
+
+syntax = "proto3";
+import "Equip.proto";
+import "Hero.proto";
+
+// 请求蜃楼数据
+message ReqTowerAllInfo
+{
+
+
+}
+
+// 剩余血量数据
+message HeroData
+{
+    int32 hp=1; // 剩余血量/万分比
+    Warrior hero=2; // 英雄数据
+    repeated BagInfo equip=3; // 装备数据
+}
+
+// 当前爬塔数据
+message TowerInfo
+{
+    int32 diff=1;// 难度
+    int32 layer=2; // 打的是那层  
+    int32 idx=3; // 事件下标    
+    repeated int32 posInfo=4; // 布阵数据
+    repeated HeroData heroData=5; // 英雄数据 
+    repeated int32 chooseBuff=6; //战斗胜利未选buff // 这个随机的不能和已有的重复
+    repeated int32 chooseedBuff=7; //已经有的buff
+    int32 score=8; // 当前积分
+    int32 pass=9; // 是否通过
+}
+
+message TowerDiffLayerData
+{
+    int32 diff=1; // 难度
+    repeated int32 idxs =2; // 已领取的层数奖励列表
+    int32 state=3; // 解锁状态 0 未解锁 1 已解锁
+    int32 layer=4; // 今日通过最高层
+}
+
+// 所有爬塔数据
+message TowerAllInfo
+{
+    TowerInfo tower=1;
+    
+    uint32 endTime=2; // 结束时间
+    repeated int32 diffs=3; //已通过难度
+    int32 idx=4; // 当前奖励索引
+    repeated int32 freeIdx=5; // 已领取免费奖励索引
+    repeated int32 costIdx=6; // 已领取付费奖励索引
+    int32 state=7; // 付费奖励状态0未解锁1:已经解锁
+    repeated TowerDiffLayerData layerRdData=8; // 难度层数奖励
+}   
+
+// 请求蜃楼数据返回
+message ResTowerAllInfo
+{
+    TowerAllInfo data = 1; // 蜃楼数据
+
+}
+
+
+
+// 选择难度
+message ReqChooseDiff
+{
+    int32 diff=1; // 难度
+    repeated int32 posInfo=2; // 布阵数据
+    int32 type=3; // 0开始布阵 1:游戏过程中布阵(1的时候也返回ResChooseDiff 只要里的布阵数据) 血量未0不让上
+}
+
+// 选择难度返回
+message ResChooseDiff
+{
+    TowerInfo data = 1; // 蜃楼数据
+    int32 type=2;
+}
+
+message NotifyEnterNextLayer
+{
+    int32 layer=1; // 打的是那层  
+    int32 idx=2; // 事件下标  
+    int32 score=3; // 当前积分
+    int32 pass=4;
+    repeated int32 chooseBuff=5; // 随机的buff
+}
+
+// 玩家选择操作
+message ReqPlayerChoose
+{
+    int32 idx=1; // 选择了那个
+    int32 layer=2; // 打的是那层  
+}
+
+// 玩家选择操作返回
+message ResPlayerChoose
+{
+    int32 idx=1; // 选择了那个
+}
+
+// 战斗检查
+message ReqFightTowerCheck
+{
+
+}
+
+// 战斗检查返回
+message ResFightTowerCheck
+{
+
+}
+
+
+// 英雄剩余血量数据
+message TowerHeroLeftHp
+{
+    int32 heroId=1; // 英雄id
+    int32 hp=2; // 剩余血量
+}
+
+// 前端战斗结束
+message ReqTowerFightEnd
+{
+    int32 res=1; // 0成功 1失败
+    repeated TowerHeroLeftHp data=2; // 英雄剩余血量数据
+}
+
+
+
+//后端反正战斗结果
+message ResTowerFightEnd
+{
+    int32 res=1; // 0成功 1失败
+    repeated int32 chooseBuff=2; //战斗胜利未选buff // 这个随机的不能和已有的重复
+}
+
+
+
+
+// 结束玩法
+message ReqStopTower
+{
+    
+}
+
+// 结束玩法返回
+message ResStopTower
+{
+    int32 score=1; // 积分
+    repeated ItemInfo items=2; // 获得的奖励
+    int32 pass=3; // 1:中途退出2:打完最后一关 
+}
+
+// 在线跨天/跨周的时候里面的数据值>0
+message NotifyNewDay
+{
+    int32 idx=1; // 当前奖励索引
+    uint32 endTime=2; // 结束时间
+}
+
+
+// 刷新商店
+message ReqRefTowerShop
+{
+
+}
+
+
+// 刷新商店
+message ResRefTowerShop
+{
+    repeated int32 goods=1; // 商店物品
+}
+
+// 英雄操作
+message ReqTowerHeroOpt
+{
+    int32 opt=1; // 1:恢复全队角色全部生命值 2从已阵亡角色中选择一位进行复活，并恢复其50%生命值 3从玩家已拥有角色中选择一位角色进入角色背包。 
+    int32 heroId=2;
+    int32 layer=3; // 打的是那层  
+}
+
+
+// 英雄操作 要更新血量数据
+message ResTowerHeroOpt
+{
+    int32 opt=1; // 1:恢复全队角色全部生命值 2从已阵亡角色中选择一位进行复活，并恢复其50%生命值 3从玩家已拥有角色中选择一位角色进入角色背包。 
+    HeroData data=2; // 英雄数据
+    int32 heroId=3;
+}
+
+
+
+// 领取积分奖励
+message ReqTowerScoreRd
+{
+    repeated int32 freeIdxList=1; // 免费奖励索引
+    repeated int32 costIdxList=2; // 付费奖励索引
+}
+
+
+// 领取积分奖励返回
+message ResTowerScoreRd
+{
+    repeated int32 freeIdxList=1; // 免费奖励索引
+    repeated int32 costIdxList=2; // 付费奖励索引
+}
+
+
+//解锁付费奖励
+message ReqUnlockCostRd
+{
+
+}
+
+//解锁付费返回
+message ResUnlockCostRd
+{
+
+}
+
+
+//每日领取层数奖励
+message ReqRecvLayerRd
+{
+    repeated int32 idxs=1; // 奖励下标
+    int32 diff=2; // 难度
+}
+
+//每日领取层数奖励返回
+message ResRecvLayerRd
+{
+    repeated int32 idxs=1; // 奖励下标
+    int32 diff=2; // 难度
+}
+
+
+//每日解锁层数奖励
+message ReqUnlockLayerRd
+{
+    int32 diff=1; // 难度
+}
+
+//每日解锁层数奖励
+message ResUnlockLayerRd
+{
+    int32 diff=1; // 难度
+}
+
+
+

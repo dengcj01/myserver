@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+import "Bag.proto";
+
+
+// 邮件数据
+message MailList
+{
+    string id=1; // 邮件id
+    string title=2; // 邮件标题
+    string content=3; // 邮件内容
+    uint32 status=4; //0:未读 1:已读 2:已领
+    uint32 expireTime=5; // 过期时间
+    repeated ItemInfo rd=6; // 附件
+    string sendName=7; // 发件人名字
+    uint32 sendTime=8; // 发送时间
+
+}
+
+// 请求邮件列表 
+message ReqMailList
+{
+
+}
+
+// 请求邮件列表返回 
+message ResMailList
+{
+    repeated MailList data=1; // 邮件列表
+}
+
+// 邮件操作 
+message ReqOptMail
+{
+    string id=1; // 邮件id
+    int32 opt=2; // 1:读 2:领取 3:删除
+}
+
+
+// 邮件操作返回 
+message ResOptMail
+{
+    string id=1; // 邮件id
+    int32 opt=2; // 1:读 2:领取 3:删除
+}
+
+
+// 一键操作邮件 
+message ReqOneKeyOptMail
+{
+    int32 opt=1; // 1:领取 2:删除
+}
+
+// 一键操作邮件返回 
+message ResOneKeyOptMail
+{
+    int32 opt=1; // 1:领取 2:删除
+    repeated string data=2;
+}
+
+// 服务器推送获得新邮件
+message NotifyAddNewMail
+{
+    repeated MailList data=1; // 邮件列表
+}
+
+
+// 主连服发送邮件
+message ReqMasterSendMail
+{
+    string title=1; // 邮件标题
+    string content=2; // 邮件内容
+    uint32 expireTime=3; // 过期时间
+    repeated ItemInfo rd=4; // 附件
+    string sendName=5; // 发件人名字
+    uint32 sendTime=6; // 发送时间
+    string desc=7; // 描述消息
+    string extra=8; // 额外数据
+    uint64 pid=9; // 玩家id
+}

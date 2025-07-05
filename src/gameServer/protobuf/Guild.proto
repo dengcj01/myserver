@@ -1,0 +1,278 @@
+syntax = "proto3";
+
+import "Player.proto";
+
+// 工会基础数据
+message GuildBaseData
+{
+    string   guildId      = 1;   // 工会唯一id
+    string    name         = 2;   // 名称
+    int32    level        = 3;   // 等级
+    int32    exp          = 4;   // 经验
+    string    notice       = 5;   // 公告
+    int32    icon         = 6;   // 图标
+    int32    frame        = 7;   // 边框    
+    string   preUid       = 8;   // 会长uid
+    repeated string fUids = 9;   // 副会长uid列表
+    int32    needLv       = 10;  // 申请等级
+    int32    nameCnt      = 11;  // 已修改名称次数
+    int32    jobCnt       = 12;  // 已改职位次数
+    int32    noticeCnt    = 13;  // 已修改公告次数
+    bool     applyOk      = 14;  // 申请列表是否有人
+}
+
+// 工会列表数据
+message GuildListData
+{
+    GuildBaseData base    = 1;  // 工会基础数据
+    int32         cnt     = 2;  // 成员数量
+    uint32        endTime = 3;  // 申请结束时间
+}
+
+// 请求获取工会列表信息
+message ReqGuildListInfo
+{
+
+}
+
+// 请求获取工会列表信息返回
+message ResGuildListInfo
+{
+    repeated GuildListData data = 1;  // 工会列表数据
+}
+
+
+
+
+// 工会所有数据
+message GuildAllData
+{
+    GuildBaseData base              = 1;  // 工会基础数据
+    repeated      PayerBaseInfo mem = 2;  // 成员列表
+    uint32        enterCd           = 3;  // 进入冷却时间
+}
+
+// 请求获取工会信息
+message ReqGuildInfo
+{
+
+}
+
+// 请求获取工会返回
+message ResGuildInfo
+{
+    GuildAllData data = 1;  // 工会所有数据
+}
+
+
+// 请求一键入会
+message ReqOnekeyEnterGuild
+{
+
+}
+
+// 请求一键入会
+message ResOnekeyEnterGuild
+{
+
+}
+
+
+// 服务器通知进入了工会(创建/加入针对自己)
+message NotifyMySelfEnterGuild
+{
+    GuildAllData data = 1;  // 工会所有数据
+}
+
+// 服务器通知有新人进入了工会(除了加入的那个人,其他成员会收到)
+message NotifyAddNewMemEnterGuild
+{
+    PayerBaseInfo mem = 1;  // 新增的成员列表
+}
+
+// 服务器通知退出了工会(被t/解散/主动退出)
+message NotifyQuitGuild
+{
+    string pid     = 1;  // 玩家id
+    uint32 enterCd = 2;  // 进入冷却时间
+}
+
+
+// 请求创建工会
+message ReqCreateGuild
+{
+    string name   = 1;  // 名称
+    int32 icon   = 2;  // 图标
+    int32 frame  = 3;  // 边框
+    string notice = 4;  // 公告
+    int32 needLv = 5;  // 申请等级
+}
+
+// 请求退出工会
+message ReqQuitGuild
+{
+
+}
+
+// 通知工会名称/图标/边框更新
+message NotifyGuildNameUpdate
+{
+    string name  = 1;  // 名称
+    int32 icon  = 2;  // 图标
+    int32 frame = 3;  // 边框
+}
+
+// 通知工会等级/经验更新
+message NotifyGuildLevelUpdate
+{
+    int32 level = 1;  // 等级
+    int32 exp   = 2;  // 经验
+}
+
+// 通知申请等级更新
+message NotifyGuildNeedLvUpdate
+{
+    int32 needLv = 1;  // 申请等级
+}
+
+
+// 通知公告更新
+message NotifyGuildNoticeUpdate
+{
+    string notice = 1;  // 公告内容
+}
+
+
+// 通知职位更新
+message NotifyGuildJobUpdate
+{
+    string   preUid       = 1;  // 会长uid
+    repeated string fUids = 2;  // 副会长uid列表
+    bool active =3 ; // 是否主动转让 
+    string uid=4; // 操作者
+}
+
+
+// 请求修改工会公告
+message ReqChangeGuildNotice
+{
+    string notice = 1;  // 公告内容
+}
+
+// 请求修改工会名称/图标/边框
+message ReqChangeGuildName
+{
+    string name  = 1;  // 名称
+    int32 icon  = 2;  // 图标
+    int32 frame = 3;  // 边框
+}
+
+
+// 请求设置申请等级 -1表示为不可申请
+message ReqSetJoinNeedLv
+{
+    int32 needLv = 1;  // 申请等级
+}
+
+// 通知有人申请工会
+message NotifyAddNewApplyGuild
+{
+    PayerBaseInfo info = 1;  // 新增申请消息
+}
+
+// 请求加入工会
+message ReqApplyJoinGuild
+{
+    string guildId = 1;  // 工会唯一id
+}
+
+// 请求加入工会返回
+message ResApplyJoinGuild
+{
+    string guildId = 1;  // 工会唯一id
+    int32  code    = 2;  // -1:不可申请0:成功 1:满人 2:满申请 3:已有工会 4:找不到工会 5:找不到配置 6:cd中 7:已申请 8:等级不足
+    int32  needLv  = 3;  // 申请等级
+}
+
+
+
+
+// 请求申请列表
+message ReqGuildApplyList
+{
+
+}
+
+// 请求申请列表返回
+message ResGuildApplyList
+{
+    repeated PayerBaseInfo data = 1;  // 申请列表
+}
+
+// 请求同意/拒绝加入工会
+message ReqAgreeOrRefuseEnterGuild
+{
+    string pid = 1;  // 玩家id
+    int32  opt = 2;  // 0:同意 1:拒绝
+}
+
+
+// 请求拒绝所有申请加入工会
+message ReqRefuseAllApplyGuild
+{
+
+}
+
+// 提升/解除副会长/转让会长
+message ReqPromotePresident
+{
+    string pid = 1;  // 玩家id
+    int32  opt = 2;  // 0:转让会长 1:提升副会长 2:解除副会长
+}
+
+
+// 踢出成员
+message ReqKickMember
+{
+    string pid = 1;  // 玩家id
+}
+
+
+
+// 工会日志数据
+message GuildLogData
+{
+    repeated string params = 1;  // 日志内容
+    int32    opt          = 2;  // 操作类型 1:创建 2:加入 3:退出 4:改名/图标/边框 5:公告 6:踢人 7:提升副会长 8:解除副会长 9:转让会长 10:等级提升 11:会长离线转让给别人 下面的不用记(1,4,5,)
+    uint32   optTime      = 3;  // 记录时间
+}
+
+// 请求获取工会日志信息
+message ReqGuildLogInfo
+{
+    
+}
+
+// 请求获取工会日志信息
+message ResGuildLogInfo
+{
+    repeated GuildLogData logs = 1;  // 工会日志数据
+}
+
+// 通知增加工会日志
+message NotifyAddNewGuildLog
+{
+    repeated GuildLogData logs = 1;  // 工会日志数据
+}
+
+// 通知成员登录或退出
+message NotifyMemberLoginOrLogout
+{
+    string pid = 1;  // 玩家id
+    int32  opt = 2;  // 0:登录 1:退出
+}
+
+// 通知工会跨天
+message NotifyGuildNewDay
+{
+}

@@ -1,0 +1,66 @@
+
+
+
+syntax = "proto3";
+
+// 请求首冲礼包信息
+message ReqFirstChargeGiftInfo
+{
+
+}
+
+// 首冲礼包信息
+message FirstChargeGiftData
+{
+    int32 status=1; // 解锁状态 0:未解锁1:已解锁
+    repeated int32 idxs=2; // 已领取的奖励下标
+    int32 id=3; // 礼包id
+    int32 day=4; // 已登录天数/领取第一个奖励才开始算
+}
+
+// 请求首冲礼包信息返回
+message ResFirstChargeGiftInfo
+{
+    repeated FirstChargeGiftData data=1;
+}
+
+
+// 领取首冲礼包信息奖励
+message ReqFirstChargeGiftRecv
+{
+    int32 idx=1; // 奖励下标
+    int32 id=2; // 礼包id
+}
+
+// 领取首冲礼包信息奖励返回
+message ResFirstChargeGiftRecv
+{
+    int32 idx=1; // 奖励下标
+    int32 id=2; // 礼包id
+}
+
+// 首冲礼包充值返回/付费的
+message NotifyFirstChargeGiftRet
+{
+    int32 id=1; // 礼包id
+}
+
+
+// 首冲礼包玩家跨天
+message NotifyFirstChargeGiftNewDay
+{
+
+}
+
+
+// 首冲礼包购买/钻石买的
+message ReqBuyFirstChargeGift
+{
+    int32 id=1; // 礼包id
+}
+
+// 首冲礼包购买返回/钻石买的
+message ResBuyFirstChargeGift
+{
+    int32 id=1; // 礼包id
+}
