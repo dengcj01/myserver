@@ -10,7 +10,7 @@
 
 5:协议采用protobuff3.0版本.协议的编码和解码都是在c++中实现的.lua代码没有实现编解码,详见src\gameServer\src\codec
 
-6:支持vscode的lua断点调试.需要在vscdoe安装luapand
+6:支持vscode的lua断点调试.需要在vscdoe安装luahelper
 
 7支持c++代码断点调试
 
