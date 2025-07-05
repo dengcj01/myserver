@@ -12,7 +12,7 @@
 
 6:支持vscode的lua断点调试.需要在vscdoe安装luapand
 
-7有些代码写的不严谨，请过滤，有些细节也没处理.也请过滤掉
+7支持c++代码断点调试
 
 8:架构为game进程,db进程,gate进程
 gate:客户端连接它,websocket,也可以是普通的tcp服务器
